@@ -1,0 +1,85 @@
+#root, .login-container{
+    height: 100%;
+    background-color: var(--black-main);
+}
+
+main{
+    height: 85vh; /* 100% de altura */
+    display: flex;
+    justify-content: center;
+    background-color: var(--black-main);
+}
+.login-block{
+    margin-top: 50px;
+    justify-content: center;
+    height: 90%;
+    width: 100%;
+    display: flex;
+}
+.options, .info{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+.options .login, .register, .recover{
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 33.333333%;
+}
+.options div{
+    border: 1px solid var(--yellow-main);
+}
+.info form{
+    width: 50%;
+}
+.info{
+    border: 1px solid var(--yellow-main);
+    align-items: center;
+    width: 50%;
+}
+.info h1{
+    color: var(--yellow-main);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+.form-container{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.form-container input{
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 1rem;
+}
+.form-container .yellow-text{
+    color: var(--yellow-main);
+    font-weight: bold;
+    cursor: pointer;
+}
+.form-container .yellow-text:hover{
+    transform: 0.3s;
+    text-decoration: underline;
+}
+.form-container button{
+    width: 100%;
+    padding: 1.6rem;
+    margin: auto;
+    background-color: var(--black-main);
+    border: 2px solid var(--yellow-main);
+    color: var(--yellow-main);
+    font-weight: 700;
+    font-size: 1.8rem;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+.form-container button:hover{
+    transition: 0.3s ease-in;
+    background-color: var(--yellow-main);
+    color: black
+}
