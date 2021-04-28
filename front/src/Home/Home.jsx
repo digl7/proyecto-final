@@ -7,6 +7,8 @@ const Home = () => {
     const [movies2, setMovies2] = useState([])
     const [page, setPage] = useState(1)
     const [movies, setMovies] = useState([])
+    const [searchedMovie, setSearchedMovie] = useState('')
+
     const [posterPath, setPosterPath] = useState("https://image.tmdb.org/t/p/w300")
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87'
 
@@ -45,11 +47,10 @@ const Home = () => {
         setPage(page+1)
         //  Intento de añadir 20 peliculas más a la llamada    
     }
-
-
+    console.log(searchedMovie)
     return (
-        <div className="home-container">
-            <NavBar/>
+        <div className="home-container">        
+            <NavBar searchValue={search => setSearchedMovie(search)}/>;
             <main>
                 
 
@@ -71,6 +72,7 @@ const Home = () => {
                             ) 
                         }
                 </div>
+
                 <div className="home-page-button">
                     <button onClick={() => secondCall()} >cargar mas</button>
                 </div>

@@ -42,3 +42,24 @@ li:hover{
 .navbar-container .logo{
     width: 100px;
 }
+
+.navbar-search:hover{
+    cursor: text;
+}
+
+.navbar-search input{
+    color: white;
+    letter-spacing: 1px;
+    font-weight: bold;
+    border: 1px solid var(--yellow-main);
+    background-color: var(--black-main);
+}
+
+.navbar-search input::placeholder{
+    padding-left: 20px;
+    color: white;
+}
+
+.navbar-search input:focus::placeholder{
+    color: transparent;
+}

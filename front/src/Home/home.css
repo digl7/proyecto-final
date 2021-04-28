@@ -54,8 +54,8 @@
     transition: all 0.2s linear;
 
 }
-img:hover, .movie:hover img{
-    opacity: 0.2;
+.movie:hover img{
+    opacity: 0.125;
     transition: all 0.2s linear;
 }
 .home-movie-card img{
