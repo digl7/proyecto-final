@@ -3,7 +3,7 @@
     background-color: var(--black-main);
 }
 
-main{
+.login-container main{
     height: 85vh; /* 100% de altura */
     display: flex;
     justify-content: center;
@@ -44,7 +44,8 @@ main{
 .info h1{
     color: var(--yellow-main);
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
 }
 .form-container{
     justify-content: center;
@@ -76,10 +77,11 @@ main{
     font-size: 1.8rem;
     cursor: pointer;
     letter-spacing: 2px;
+
 }
 
 .form-container button:hover{
     transition: 0.3s ease-in;
     background-color: var(--yellow-main);
-    color: black
+    color: black;
 }

@@ -71,3 +71,27 @@ img:hover, .movie:hover img{
     width: 100%;    
     position: absolute;
 }
+
+.home-page-button{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.home-page-button button{
+    border: none;
+    border: 1px solid var(--yellow-main);
+    background-color: var(--black-main);
+    color: var(--yellow-main);
+    font-weight: bold;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+.home-page-button button:hover{
+    transition: 0.3s ease-in;
+    background-color: var(--yellow-main);
+    color: black;
+}

@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import './login.css'
+import '../Login/login.css'
 import {Link} from 'react-router-dom'
 const LoginForm = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [checkPassword, setCheckPassword] = useState('')
     const [error, setError] = useState(null);
 
     const sendData = async (e) => {
@@ -19,7 +20,7 @@ const LoginForm = () => {
     }
     return (
         <Fragment>
-            <h1>INICIAR SESIÓN</h1>
+            <h1>REGÍSTRATE</h1>
             <form onSubmit={sendData}>
                 <div className="form-container">
                     <label htmlFor="username">Usuario</label>
@@ -42,8 +43,18 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
+                    <label htmlFor="checkPassword">Repetir contraseña</label>
+                    <input 
+                        name="checkPassword" 
+                        type="checkPassword"
+                        id="checkPassword"
+                        alt="Escribe tu contraseña otra vez"
+                        placeholder="Repite la contraseña"
+                        onChange={(e) => setCheckPassword(e.target.value)}
+                        value={checkPassword}
+                    />
                     {error ? <span className="text-danger">{error}</span> : null}
-                    <button>ACCEDER</button>
+                    <button>Regístrate</button>
                 </div>
             </form>
         </Fragment>

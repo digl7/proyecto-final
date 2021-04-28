@@ -11,6 +11,9 @@ body,html, .app-container {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+html{
+  background-color: var(--black-main  );
+}
 
 ul{
   margin: 0;
