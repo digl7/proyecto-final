@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import './navbar.css'
 
 
 const NavBar = (props) => {
-    const [search, setSearch] = useState('')
-    console.log(search)
+    
+
     return (
         <div className="navbar-container">
             <header>
@@ -19,8 +19,7 @@ const NavBar = (props) => {
                                 name="search" 
                                 placeholder="Buscar... " 
                                 type="text"
-                                onChange={(e) => setSearch(e.target.value)}
-                                value={search}
+                                onChange={props.handleChange}
                             /> 
                         </li>
                         <li>Filtrar</li>
