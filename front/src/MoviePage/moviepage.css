@@ -18,6 +18,7 @@
 }
 
 .movie-container{
+    margin-top: 2%;
     background-image: url('https://themoviedb.org/t/p/w1920_and_h800_multi_faces/lOSdUkGQmbAl5JQ3QoHqBZUbZhC.jpg');
     background-position: right -200px top;
     background-size: cover;
