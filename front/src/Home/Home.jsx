@@ -1,16 +1,19 @@
-import React, {useEffect, useState}  from 'react'
+import React, {useEffect, useState }  from 'react'
 import NavBar from '../NavBar/NavBar'
+import { useHistory, Link } from "react-router-dom";
+
 import './home.css'
 
 
-const Home = () => {
+const Home = (props) => {
     // Página de la api:  https://developers.themoviedb.org/3/getting-started/introduction
     const [movies2, setMovies2] = useState([]) // Uso esto para poder sumar las listas [peli1,peli2] + [peli3,peli4] = [peli1,peli2,peli3,peli4]
     const [page, setPage] = useState(1) //Le sumo +1 cuando se da click en "cargas más"
     const [movies, setMovies] = useState([]) //lista inicial de 20 películas (máximo de peliculas por llamada a la api)
 
     const [search, setSearch] = useState('')
-    console.log(search)
+
+    const history = useHistory();
 
     const [posterPath, setPosterPath] = useState("https://image.tmdb.org/t/p/w300")
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
@@ -30,7 +33,6 @@ const Home = () => {
     const secondCall = async() => {
         const res = await fetch("https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate")
         const data = await res.json();
-        console.log(data)
         setMovies2(data.results)
         setMovies([...movies, ...movies2])
         setPage(page+1)
@@ -63,10 +65,9 @@ const Home = () => {
                 <div className="home-movie-cards">                        
                         {
                             movies.map((movie) => 
-                            
+                            <Link to={`/movie/${movie.id}`}>
                                 <div key={movie.id}  className="home-movie-card">
                                     <div className="movie">
-                                        {console.log(movie.poster_path) }
                                         <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
                                         <div className="movie-info">
                                             <span className="movie-title">{movie.title}</span>
@@ -74,12 +75,13 @@ const Home = () => {
                                         </div>
                                     </div>
                                 </div> 
+                            </Link>
                             ) 
                         }
                 </div>
 
                 <div className="home-page-button">
-                    <button onClick={() => secondCall()} >cargar mas</button>
+                    <button onClick={() => secondCall()}> Cargar mas </button>
                 </div>
             </main>
             
