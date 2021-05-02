@@ -1,0 +1,99 @@
+/*De momento lo dejo blanco para poder leerlo */
+.moviePage-container span, p, h2{
+    color: white;
+}
+
+.moviePage-container{
+    height: 100%;
+}
+
+.moviePage-container main{
+    height: 85vh; /* 100% de altura */
+}
+
+.moviePage-container .movie-info{
+    background-image: linear-gradient(to right, rgba(11.76%, 16.08%, 16.47%, 1.00) 150px, rgba(11.76%, 16.08%, 16.47%, 0.84) 100%);
+    display: flex;
+    padding: 3% 0;
+}
+
+.movie-container{
+    background-image: url('https://themoviedb.org/t/p/w1920_and_h800_multi_faces/lOSdUkGQmbAl5JQ3QoHqBZUbZhC.jpg');
+    background-position: right -200px top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.moviePage-container .movie-poster{
+    margin: 0 5%;
+}
+
+.moviePage-container .movie-poster img{
+    width: 350px;
+    border-radius: 15px;
+}
+
+.moviePage-container .movie-title span{
+    font-size: 2.3rem;
+}
+
+.moviePage-container .movie-description{
+    margin-top: 30px;
+    max-width: 66ch;
+}
+
+/*Margin de la página para tener los margenes alineados a la izquierda*/
+.moviePage-container .movie-cast-container, .movie-comments{
+    margin: 0 5%;
+}
+
+.moviePage-container .movie-cast-container{
+    margin-top: 25px;
+}
+
+.moviePage-container .movie-cast, .movie-cast-card{
+    display: flex;
+}
+.moviePage-container .movie-cast{
+    padding: 20px 0;
+    margin-bottom: 20px;
+    overflow: scroll;
+    overflow-y: hidden;
+    
+}
+.moviePage-container .movie-cast::-webkit-scrollbar{
+    height: 7px;
+    border-radius: 3px;
+}
+
+
+.moviePage-container .movie-cast::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-main);
+    border-radius: 3px;
+    width: 20px;
+
+}
+
+.moviePage-container .movie-cast-card{
+    position: relative;
+    margin-right: 80px;
+    padding: 0px 0px 55px;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.09);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.09);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.09);
+    
+}
+.moviePage-container .movie-cast-card img{
+    width: 220px;
+    border-radius: 15px 15px 0 0;
+}
+
+.moviePage-container .movie-cast-card span{
+    font-weight: bold;
+    position: absolute;
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+    bottom: 13px;
+}

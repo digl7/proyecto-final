@@ -4,6 +4,7 @@ import "./App.css";
 
 import Home from "./Home/Home.jsx"
 import Login from "./Login/Login.jsx"
+import MoviePage from "./MoviePage/MoviePage";
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home}></Route> 
-          <Route exact path="/login" component={Login}></Route>    
+          <Route exact path="/login" component={Login}></Route>
+          
+          <Route exact path="/movie" component={MoviePage}></Route>    
       
         </Switch>
       </BrowserRouter>

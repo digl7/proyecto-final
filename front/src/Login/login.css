@@ -10,9 +10,9 @@
     background-color: var(--black-main);
 }
 .login-block{
-    margin-top: 50px;
+    margin-top: 70px;
     justify-content: center;
-    height: 90%;
+    height: 80%;
     width: 100%;
     display: flex;
 }
