@@ -14,6 +14,7 @@ const NavBar = (props) => {
                     <ul>
                         <li> <Link to ="/"><img className="logo" alt="Logo, volver al home" src={logo} alt=""/></Link></li>
                         <li className="navbar-search"> 
+                        <Link to="/">
                             <label htmlFor="search"></label>
                             <input 
                                 alt="Busca una película" 
@@ -22,6 +23,7 @@ const NavBar = (props) => {
                                 type="text"
                                 onChange={props.handleChange}
                             /> 
+                        </Link>
                         </li>
                         <li>Filtrar</li>
                         <li>Mi lista</li>

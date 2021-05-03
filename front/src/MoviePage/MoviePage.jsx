@@ -3,6 +3,8 @@ import './moviepage.css'
 import NavBar from '../NavBar/NavBar'
 import axios from 'axios'
 import notfound from "../Placeholder-photos/nf.png"
+import noavatar from "../Placeholder-photos/no_avatar.jpg"
+
 
 
 
@@ -82,7 +84,7 @@ const MoviePage = () => {
                                 :
                                 cast.map((act) => 
                                     <div className="movie-cast-card">
-                                    <img src={act.profile_path === null ? notfound : profilePhoto + act.profile_path} alt=""/>
+                                    <img src={act.profile_path === null ? noavatar : profilePhoto + act.profile_path} alt=""/>
                                         <span>{act.name}</span>
                                     </div>
                             )

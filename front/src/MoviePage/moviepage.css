@@ -57,7 +57,7 @@
 }
 
 .moviePage-container .movie-cast-card img:hover{
-    border: 1px solid var(--yellow-main);
+    border: 2px solid var(--yellow-main);
     border-radius: 15px 15px 0 0;
 }
 
