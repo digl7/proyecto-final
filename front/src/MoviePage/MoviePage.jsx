@@ -9,6 +9,7 @@ const MoviePage = () => {
     
     let posterPath = "https://image.tmdb.org/t/p/w500" //El poster con mas calidad
     let profilePhoto = "https://image.tmdb.org/t/p/w300" //Foto de perfil de cada actor
+    let background = "https://themoviedb.org/t/p/w1920_and_h800_multi_faces/" //Foto de background
     const [isLoading, setIsLoading] = useState(true) //Espero a que los datos llegen a el useEffect, sino me daba undefined en otros estados
     const [movie, setMovie] = useState([])    
     const [cast, setCast] = useState([])  
@@ -41,7 +42,7 @@ const MoviePage = () => {
             <NavBar/>
             { !isLoading && 
             <main>
-                <div className="movie-container">
+                <div className="movie-container" style={{backgroundImage: "url(" + background + movie.backdrop_path + ")"}}>
                     <div className="movie-info">
                     <div className="movie-poster">
                     <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt="Poster de la película"/>
@@ -76,7 +77,7 @@ const MoviePage = () => {
                             cast.map((act) => 
                                 <div className="movie-cast-card">
                                 <img src={act.profile_path === null ? "nf.png" : profilePhoto + act.profile_path} alt=""/>
-                                <span>{act.name}</span>
+                                    <span>{act.name}</span>
                                 </div>
                             )
                         }
