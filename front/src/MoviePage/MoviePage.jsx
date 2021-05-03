@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import './moviepage.css'
 import NavBar from '../NavBar/NavBar'
 import axios from 'axios'
+import notfound from "../Placeholder-photos/nf.png"
 
 
 
@@ -45,7 +46,7 @@ const MoviePage = () => {
                 <div className="movie-container" style={{backgroundImage: "url(" + background + movie.backdrop_path + ")"}}>
                     <div className="movie-info">
                     <div className="movie-poster">
-                    <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt="Poster de la película"/>
+                    <img src={ movie.poster_path === null ? notfound : posterPath+movie.poster_path} alt="Poster de la película"/>
                     </div>
                     <div className="movie-all">
                         <div className="movie-title">
@@ -64,27 +65,32 @@ const MoviePage = () => {
                                 }
                         </div>
                         <div className="movie-description">
-                            <p>{movie.overview}</p>
+                            <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>
                         </div>
   
                     </div>
                 </div>
                 </div>
+
                 <div className="movie-cast-container">
                     <h2>Reparto principal</h2>
                     <div className="movie-cast">
                         {
-                            cast.map((act) => 
-                                <div className="movie-cast-card">
-                                <img src={act.profile_path === null ? "nf.png" : profilePhoto + act.profile_path} alt=""/>
-                                    <span>{act.name}</span>
-                                </div>
+                            cast.length === 0 
+                                ? 
+                                <span>No hay información sobre los actores de esta película</span>
+                                :
+                                cast.map((act) => 
+                                    <div className="movie-cast-card">
+                                    <img src={act.profile_path === null ? notfound : profilePhoto + act.profile_path} alt=""/>
+                                        <span>{act.name}</span>
+                                    </div>
                             )
                         }
                     </div>
                 </div>
                 <div className="movie-comments">
-                    <h2>Comentarios (18)</h2>
+                    <h2>Comentarios (X)</h2>
                     
                     <div className="comment">
                         <p>
