@@ -13,16 +13,16 @@ const Login = () => {
             <main>
                 <div className="login-block">
                     <div className="options">
-                        <div onClick={() => setIsLogin("Login")} className="login">
-                            <h2>Iniciar sesion</h2>
+                        <div onClick={() => setIsLogin("Login")} className={isLogin === 'Login' ? "login select" : "login"}>
+                            <h2>INICIAR SESIÓN</h2>
 
                         </div>
-                        <div onClick={() => setIsLogin("Register")} className="register">
-                            <h2> Registrate - icono</h2>
+                        <div onClick={() => setIsLogin("Register")} className={isLogin === 'Register' ? "register select" : "register"}>
+                            <h2> REGÍSTRATE</h2>
 
                         </div>
-                        <div onClick={() => setIsLogin("Recover")} className="recover">
-                            <h2> Recuperar contraseña - icono</h2>
+                        <div onClick={() => setIsLogin("Recover")} className={isLogin==='Recover' ? "recover select" : "recover"}>
+                            <h2> RECUPERAR CONTRASEÑA </h2>
                         </div>
                     </div>
                     <div className="info">

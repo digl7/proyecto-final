@@ -16,6 +16,21 @@
     width: 100%;
     display: flex;
 }
+
+.options h2{
+    color: var(--yellow-main);
+    font-weight: bold;
+}
+.options div:hover{
+    transition: 0.3s;
+    background-color: var(--yellow-main);
+}
+
+.options div:hover h2{
+    transition: 0.3s;
+    color: var(--black-main);
+}
+
 .options, .info{
     color: #fff;
     display: flex;
@@ -23,6 +38,16 @@
     justify-content: center;
     height: 100%;
 }
+
+/* Cuando das click en una opción para elegir si Iniciar sesión, Registro o Recuperar contraseña*/
+.login-block .options .select{
+    background-color: var(--yellow-main);
+}
+.login-block .options .select h2{
+    color: var(--black-main);
+}
+
+
 .options .login, .register, .recover{
     cursor: pointer;
     align-items: center;

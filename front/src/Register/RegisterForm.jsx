@@ -9,11 +9,15 @@ const LoginForm = () => {
 
     const sendData = async (e) => {
         e.preventDefault();
-        if (!username.trim() || !password.trim()) {
+        if (!username.trim() || !password.trim() || !checkPassword.trim()) {
           //si el campo está vacio
           setError("Rellena los campos");
           return;
-        } else {
+        }
+        if (password !== checkPassword){
+            setError("Las contraseñas no coinciden")
+        }
+        else {
           setError(null);
         }
 
@@ -46,7 +50,7 @@ const LoginForm = () => {
                     <label htmlFor="checkPassword">Repetir contraseña</label>
                     <input 
                         name="checkPassword" 
-                        type="checkPassword"
+                        type="password"
                         id="checkPassword"
                         alt="Escribe tu contraseña otra vez"
                         placeholder="Repite la contraseña"
