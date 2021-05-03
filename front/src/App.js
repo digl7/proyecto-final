@@ -12,9 +12,8 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Home}></Route> 
-          <Route exact path="/login" component={Login}></Route>
-          
-          <Route exact path="/movie/:id" component={MoviePage}></Route>    
+          <Route path="/login" component={Login}></Route>
+          <Route path="/movie/:id" component={MoviePage}></Route>    
       
         </Switch>
       </BrowserRouter>

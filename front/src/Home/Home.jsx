@@ -1,7 +1,8 @@
 import React, {useEffect, useState }  from 'react'
 import NavBar from '../NavBar/NavBar'
-import { useHistory, Link } from "react-router-dom";
-
+import {
+    Link
+  } from "react-router-dom";
 import './home.css'
 
 
@@ -13,7 +14,6 @@ const Home = (props) => {
 
     const [search, setSearch] = useState('')
 
-    const history = useHistory();
 
     const [posterPath, setPosterPath] = useState("https://image.tmdb.org/t/p/w300")
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
@@ -30,7 +30,7 @@ const Home = (props) => {
         setPage(page+1)
     }
 
-    const secondCall = async() => {
+    const loadMore = async() => {
         const res = await fetch("https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate")
         const data = await res.json();
         setMovies2(data.results)
@@ -63,10 +63,10 @@ const Home = (props) => {
             />;
             <main>
                 <div className="home-movie-cards">                        
-                        {
+                        { 
                             movies.map((movie) => 
-                            <Link to={`/movie/${movie.id}`}>
-                                <div key={movie.id}  className="home-movie-card">
+                            <Link key={movie.id} to={`/movie/${movie.id}`}>
+                                <div className="home-movie-card">
                                     <div className="movie">
                                         <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
                                         <div className="movie-info">
@@ -81,7 +81,7 @@ const Home = (props) => {
                 </div>
 
                 <div className="home-page-button">
-                    <button onClick={() => secondCall()}> Cargar mas </button>
+                    <button onClick={() => loadMore()}> Cargar mas </button>
                 </div>
             </main>
             

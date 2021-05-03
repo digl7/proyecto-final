@@ -1,69 +1,69 @@
 import React, {useState, useEffect} from 'react'
 import './moviepage.css'
 import NavBar from '../NavBar/NavBar'
+import axios from 'axios'
 
-const MoviePage = () => {
-    const [movieID, setMovieID] = useState('')
-    const [movies, setMovies] = useState([])
-    const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
 
-    // Llamada api para sacar Actores / Crew / Todo el mundo
-    // Wonder woman 1984 https://api.themoviedb.org/3/movie/464052?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits
-    // https://api.themoviedb.org/3/movie/150540?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits
-    useEffect(() => {
-        getMovie()
-    }, [movieID])
+
+const MoviePage = () => {  
     
+    let posterPath = "https://image.tmdb.org/t/p/w300"
+    const [isLoading, setIsLoading] = useState(true) //Espero a que los datos llegen a el useEffect, sino me daba undefined en otros estados
+    const [movie, setMovie] = useState([])    
+    const [cast, setCast] = useState([])  
+    const [genres, setGenres] = useState([])
 
-    const getMovie = async() => {
-        if (movieID === ""){
-            setMovieID(window.location.href.split("/movie/")[1])
-        } else{
-            console.log(movieID)
-            const res = await fetch("https://api.themoviedb.org/3/movie/"+movieID+"?"+apikey+"&append_to_response=credits")
-            // const res = await fetch("https://api.themoviedb.org/3/movie/464052?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits")
-            const data = await res.json();
-            setMovies(data)
-            console.log(movies)
+
+    const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87'
+    let id = window.location.href.split("/movie/")[1] // ID de la película en la que das click
+    let search = "https://api.themoviedb.org/3/movie/"+id+"?"+apikey+"&language=es-ES&append_to_response=credits"
+
+    // https://api.themoviedb.org/3/movie/460465?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits mortal kombat json (prueba)
+
+    useEffect(() => {
+        async function getMovie() {
+            const request = await axios.get(search)
+            setMovie(request.data)
+            setCast(request.data.credits.cast)
+            setGenres(request.data.genres)
+            setIsLoading(false)
+            return request
         }
-    }
+        getMovie()
+
+    }, []) 
+
+
     return (
+
         <div className="moviePage-container">
             <NavBar/>
+            { !isLoading && 
             <main>
                 <div className="movie-container">
                     <div className="movie-info">
                     <div className="movie-poster">
-                        <img src="nf.png" alt=""/>
+                    <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
                     </div>
-
                     <div className="movie-all">
-
                         <div className="movie-title">
-                        {/* {
-                            movies.map((movie) => 
-                                        <div className="movie-info">
-                                            <span className="movie-title">{movie.title}</span>
-                                        </div>
-                            ) 
-                        } */}
-                            <span>Título ( año ) </span>
+                            <span>{movie.title} | </span>
+                            <span>{movie.release_date.split("-")[0]}</span>
                             <button>Añadir a mi lista</button>
                             <button>Comentarios / Valorar</button>
                         </div>
 
                         <div className="movie-genres">
-                            <p>
-                                Suspense, Acción, Ciencia ficción
-                            </p>
+                                { 
+                                
+                                    genres.map((genre, i) =>
+                                    // Última posicion termina con punto.
+                                     <span key={genre.id} > {genres.length === i + 1 ? genre.name+"." : genre.name+", "  } </span>
+                                    ) 
+                                }
                         </div>
-
                         <div className="movie-description">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                deleniti ad, fuga molestiae vel quis enim, nostrum ea? Nemo
-                                Voluptate, voluptas quos.
-                            </p>
+                            <p>{movie.overview}</p>
                         </div>
   
                     </div>
@@ -126,7 +126,9 @@ const MoviePage = () => {
                         </p>
                     </div>
                 </div>
+                
             </main>
+            }
         </div>
     )
 }
