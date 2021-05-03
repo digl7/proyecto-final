@@ -7,7 +7,8 @@ import axios from 'axios'
 
 const MoviePage = () => {  
     
-    let posterPath = "https://image.tmdb.org/t/p/w300"
+    let posterPath = "https://image.tmdb.org/t/p/w500" //El poster con mas calidad
+    let profilePhoto = "https://image.tmdb.org/t/p/w300" //Foto de perfil de cada actor
     const [isLoading, setIsLoading] = useState(true) //Espero a que los datos llegen a el useEffect, sino me daba undefined en otros estados
     const [movie, setMovie] = useState([])    
     const [cast, setCast] = useState([])  
@@ -43,7 +44,7 @@ const MoviePage = () => {
                 <div className="movie-container">
                     <div className="movie-info">
                     <div className="movie-poster">
-                    <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
+                    <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt="Poster de la película"/>
                     </div>
                     <div className="movie-all">
                         <div className="movie-title">
@@ -55,7 +56,6 @@ const MoviePage = () => {
 
                         <div className="movie-genres">
                                 { 
-                                
                                     genres.map((genre, i) =>
                                     // Última posicion termina con punto.
                                      <span key={genre.id} > {genres.length === i + 1 ? genre.name+"." : genre.name+", "  } </span>
@@ -72,42 +72,14 @@ const MoviePage = () => {
                 <div className="movie-cast-container">
                     <h2>Reparto principal</h2>
                     <div className="movie-cast">
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Kristina Tonteri-Young</span>
-                        </div>
-
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Nombre</span>
-                        </div>
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Kristina Tonteri-Young</span>
-                        </div>
-
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Nombre</span>
-                        </div>
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Kristina Tonteri-Young</span>
-                        </div>
-
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Nombre</span>
-                        </div>
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Kristina Tonteri-Young</span>
-                        </div>
-
-                        <div className="movie-cast-card">
-                            <img src="nf.png" alt=""/>
-                            <span>Nombre</span>
-                        </div>
+                        {
+                            cast.map((act) => 
+                                <div className="movie-cast-card">
+                                <img src={act.profile_path === null ? "nf.png" : profilePhoto + act.profile_path} alt=""/>
+                                <span>{act.name}</span>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
                 <div className="movie-comments">
