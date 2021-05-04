@@ -4,55 +4,69 @@ import {
     Link
   } from "react-router-dom";
 import './home.css'
+import axios from 'axios';
 
 
-const Home = (props) => {
+const Home = () => {
     // Página de la api:  https://developers.themoviedb.org/3/getting-started/introduction
-    const [movies2, setMovies2] = useState([]) // Uso esto para poder sumar las listas [peli1,peli2] + [peli3,peli4] = [peli1,peli2,peli3,peli4]
+    const [isLoading, setIsLoading] = useState(true)
     const [page, setPage] = useState(1) //Le sumo +1 cuando se da click en "cargas más"
     const [movies, setMovies] = useState([]) //lista inicial de 20 películas (máximo de peliculas por llamada a la api)
 
     const [search, setSearch] = useState('')
 
 
-    const [posterPath, setPosterPath] = useState("https://image.tmdb.org/t/p/w300")
+    const posterPath = "https://image.tmdb.org/t/p/w300"
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
 
-    //UseEffect para la carga de peliculas cuando entras a la página o cuando le das al botón de cargas más.
+    const link = "https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate"
+
+    //UseEffect para la carga de peliculas cuando entras a la página y cuando le das al botón de cargar más.
     useEffect(() => {
         getMovies()
-    }, [])
 
-    const getMovies = async() => { //Busco las peliculas de esta forma: calificación promedio y número de votos (automaticamente hecho por la api)
-        const res = await fetch("https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate")
-        const data = await res.json();
-        setMovies(data.results)
+    }, [page])
+
+    const getMovies = async() => {
+        const request = await axios.get(link)
+        .then(resp => {
+            //si la barra de búsqueda es vacía y la página es menor o igual a 1, hace la llamada normal (para resetear la búsqueda al borrarla) 
+            //pj: Buscas Spiderman, y lo borras. Te devuelve a la búsqueda inicial
+            if (search === '' && page <= 1){
+                setPage(1)
+                setMovies(resp.data.results)
+            } else{
+                //y sino está vacía uno la lista de películas con la siguiente. Es decir [peli1, peli2] + [peli3, peli4] = [peli1, peli2, peli3, peli4]
+                setMovies(movies => [...movies, ...resp.data.results])
+            }
+        })
+
+        //isLoading a false para que cuando termine de hacer toda la petición le de tiempo al render cargarlo bien. 
+        setIsLoading(false)
+
+        return request
+    }
+
+    const loadMore = () => {
         setPage(page+1)
     }
 
-    const loadMore = async() => {
-        const res = await fetch("https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate")
-        const data = await res.json();
-        setMovies2(data.results)
-        setMovies([...movies, ...movies2])
-        setPage(page+1)
-    }
 
     /* Búsqueda de peliculas */
-    const searchMovie = async() => { //Busco las peliculas de esta forma: calificación promedio y número de votos (automaticamente hecho por la api)
-        setPage(1)
-        if (search == ''){
-            getMovies()
-        } else{
+    const searchMovie = async() => { //Busco las peliculas de esta forma: calificación promedio y número de votos.
+        if (search !== ''){ 
             const res = await fetch("https://api.themoviedb.org/3/search/movie?"+apikey+"&language=es-ES&query="+search+"&page=1&include_adult=false")
             const data = await res.json();
             setMovies(data.results)
+        } else{
+            getMovies()
+
         }
     }
 
-    // Cada vez que escribo algo en el input de búsqueda ejecuto la llamada a la api.
+    //si la búsqueda no está vacía llamo a la api de search con lo que hayamos buscado.
     useEffect(() => {
-        searchMovie()
+        searchMovie() 
     }, [search])
 
 
@@ -61,7 +75,10 @@ const Home = (props) => {
             <NavBar
                 handleChange = {(e) => setSearch(e.target.value)}
             />;
+            {/* Cuando loading sea false (al terminar la llamada api) se renderiza el main */}
+            { !isLoading && 
             <main>
+                { console.log(movies) }
                 <div className="home-movie-cards">                        
                         { 
                             movies.map((movie) => 
@@ -71,7 +88,7 @@ const Home = (props) => {
                                         <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
                                         <div className="movie-info">
                                             <span className="movie-title">{movie.title}</span>
-                                            <span className="movie-overview">{ movie.overview == "" ?  "No hay descripción de esta película" : movie.overview}</span>
+                                            <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
                                         </div>
                                     </div>
                                 </div> 
@@ -84,7 +101,7 @@ const Home = (props) => {
                     <button onClick={() => loadMore()}> Cargar mas </button>
                 </div>
             </main>
-            
+            }
 
         </div>
     )
