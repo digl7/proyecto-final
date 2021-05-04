@@ -30,9 +30,7 @@ const Home = () => {
     const getMovies = async() => {
         const request = await axios.get(link)
         .then(resp => {
-            //si la barra de búsqueda es vacía y la página es menor o igual a 1, hace la llamada normal (para resetear la búsqueda al borrarla) 
-            //pj: Buscas Spiderman, y lo borras. Te devuelve a la búsqueda inicial
-            if (search === '' && page <= 1){
+            if (search === '' && page == 1){
                 setPage(1)
                 setMovies(resp.data.results)
             } else{
@@ -59,6 +57,8 @@ const Home = () => {
             const data = await res.json();
             setMovies(data.results)
         } else{
+            setPage(1)
+            setMovies([])
             getMovies()
 
         }
