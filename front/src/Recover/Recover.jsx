@@ -34,7 +34,7 @@ const Recover = (props) => {
                     />
                     <p>¿No la habías olvidado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}
-                    <button>Enviar</button>
+                    <button>ENVIAR</button>
                 </div>
 
             </form>

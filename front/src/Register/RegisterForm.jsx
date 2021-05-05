@@ -58,7 +58,7 @@ const LoginForm = (props) => {
                     />
                     <p>¿Ya estás registrado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}
-                    <button>Regístrate</button>
+                    <button>REGÍSTRATE</button>
                 </div>
             </form>
         </Fragment>
