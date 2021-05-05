@@ -69,3 +69,15 @@ li:hover{
 .navbar-search input:focus::placeholder{
     color: transparent;
 }
+
+
+@media only screen and (max-width: 412px) {
+    .navbar-container nav ul {
+      background-color: red;
+      font-size: 11px;
+    }
+    .navbar-container nav ul {
+        background-color: red;
+        font-size: 11px;
+      }
+  }

@@ -60,7 +60,6 @@
     color: var(--black-main);
 }
 
-
 .options .login, .register, .recover{
     cursor: pointer;
     align-items: center;
