@@ -83,9 +83,9 @@ const MoviePage = () => {
                                 <span>No hay información sobre los actores de esta película</span>
                                 :
                                 cast.map((act) => 
-                                    <div className="movie-cast-card">
+                                    <div key={act.id} className="movie-cast-card">
                                     <img src={act.profile_path === null ? noavatar : profilePhoto + act.profile_path} alt=""/>
-                                        <span>{act.name}</span>
+                                        <span>{act.name} </span>
                                     </div>
                             )
                         }

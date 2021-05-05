@@ -31,6 +31,15 @@
     color: var(--black-main);
 }
 
+.form-container .yellow{
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--yellow-main);
+}
+
+.form-container .yellow:hover{
+    text-decoration: underline;
+}
 .options, .info{
     color: #fff;
     display: flex;

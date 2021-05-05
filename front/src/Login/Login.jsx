@@ -3,9 +3,11 @@ import NavBar from '../NavBar/NavBar'
 import './login.css'
 import LoginForm from './LoginForm'
 import RegisterForm from '../Register/RegisterForm'
+import Recover from '../Recover/Recover'
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState("Login")
+
 
     return (
         <div className="login-container">
@@ -28,9 +30,12 @@ const Login = () => {
                     <div className="info">
                         
                         { 
-                            isLogin === 'Login' ? <LoginForm/> :
-                            isLogin === 'Register' ? <RegisterForm/> :
-                            isLogin === 'Recover' ? "soy recover" : <LoginForm/>
+                            isLogin === 'Login' ? <LoginForm 
+                                                    handleIsRegister={() => setIsLogin("Register")}
+                                                    handleIsRecover={() => setIsLogin("Recover")}
+                                                    /> :
+                            isLogin === 'Register' ? <RegisterForm handleIsLogin={() => setIsLogin("Login")}/> :
+                            isLogin === 'Recover' ? <Recover handleIsLogin={() => setIsLogin("Login")}/> : <LoginForm/>
                         }     
                             
                     </div>

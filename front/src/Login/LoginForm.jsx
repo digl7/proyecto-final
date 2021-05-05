@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import './login.css'
-import {Link} from 'react-router-dom'
-const LoginForm = () => {
+
+const LoginForm = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null);
@@ -42,6 +42,9 @@ const LoginForm = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
+                    <p>¿No tienes cuenta? <span onClick={props.handleIsRegister} class="yellow"> Regístrate </span></p>
+                    
+                    <p>¿Has olvidado tu contraseña? <span onClick={props.handleIsRecover} class="yellow"> Recupérala </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}
                     <button>ACCEDER</button>
                 </div>
