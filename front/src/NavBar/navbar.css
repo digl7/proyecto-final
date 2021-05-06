@@ -74,52 +74,14 @@ li:hover{
     display: none;
 }
 
+.yellow {
+    color: var(--yellow-main);
+}
+ 
+/*  Media querys  */ 
 
 @media (min-width: 1025px) and (max-width: 1280px) {
 
-/* CSS */
-
-}
-
-/* 
-##Device = Tablets, Ipads (portrait)
-##Screen = B/w 768px to 1024px
-*/
-
-@media (min-width: 768px) and (max-width: 1024px) {
-
-/* CSS */
-
-}
-
-/* 
-##Device = Tablets, Ipads (landscape)
-##Screen = B/w 768px to 1024px
-*/
-
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-
-/* CSS */
-
-}
-
-/* 
-##Device = Low Resolution Tablets, Mobiles (Landscape)
-##Screen = B/w 481px to 767px
-*/
-
-@media (min-width: 481px) and (max-width: 767px) {
-
-/* CSS */
-
-}
-
-/* 
-##Device = Most of the Smartphones Mobiles (Portrait)
-##Screen = B/w 320px to 479px
-*/
-  
-@media (max-width: 480px) {
     .navbar-container .filtrar, .login, .myList{
         display: none;
     }
@@ -132,8 +94,13 @@ li:hover{
     .navbar-container input{
         font-size: 1.4rem;
     }
+    .movil-menu .movil-container-menu{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
     .navbar-container nav ul {
-        font-size: 11px;
+        font-size: 1rem;
     }
     .navbar-container .logo{
         width: 60px;
@@ -147,6 +114,154 @@ li:hover{
         left: 0;
         background-color: var(--black-main); 
         overflow-x: hidden; 
+    }
+    .movil-container-menu > *{
+        font-size: 2rem;
+    }
+    .movil-container-menu svg{
+        margin-top: 100px;
+    }
+    .movil-container-menu li:last-of-type{
+        margin-bottom: 200px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .navbar-container .filtrar, .login, .myList{
+        display: none;
+    }
+    .navbar-container .hamburger-menu{
+        color: var(--yellow-main);
+        display: block;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .navbar-container input{
+        font-size: 1.4rem;
+    }
+    .movil-menu .movil-container-menu{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .navbar-container nav ul {
+        font-size: 1rem;
+    }
+    .navbar-container .logo{
+        width: 60px;
+    }
+    .navbar-container .movil-menu{
+        height: 100%; 
+        width: 0;
+        position: fixed; 
+        z-index: 1; 
+        top: 0; 
+        left: 0;
+        background-color: var(--black-main); 
+        overflow-x: hidden; 
+    }
+    .movil-container-menu > *{
+        font-size: 2rem;
+    }
+    .movil-container-menu svg{
+        margin-top: 100px;
+    }
+    .movil-container-menu li:last-of-type{
+        margin-bottom: 200px;
+    }
+}
+
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .navbar-container .filtrar, .login, .myList{
+        display: none;
+    }
+    .navbar-container .hamburger-menu{
+        color: var(--yellow-main);
+        display: block;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .navbar-container input{
+        font-size: 1.4rem;
+    }
+    .movil-menu .movil-container-menu{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .navbar-container nav ul {
+        font-size: 1rem;
+    }
+    .navbar-container .logo{
+        width: 60px;
+    }
+    .navbar-container .movil-menu{
+        height: 100%; 
+        width: 0;
+        position: fixed; 
+        z-index: 1; 
+        top: 0; 
+        left: 0;
+        background-color: var(--black-main); 
+        overflow-x: hidden; 
+    }
+    .movil-container-menu > *{
+        font-size: 2rem;
+    }
+    .movil-container-menu svg{
+        margin-top: 100px;
+    }
+    .movil-container-menu li:last-of-type{
+        margin-bottom: 200px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .navbar-container .filtrar, .login, .myList{
+        display: none;
+    }
+    .navbar-container .hamburger-menu{
+        color: var(--yellow-main);
+        display: block;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .navbar-container input{
+        font-size: 1.4rem;
+    }
+    .movil-menu .movil-container-menu{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .navbar-container nav ul {
+        font-size: 1rem;
+    }
+    .navbar-container .logo{
+        width: 60px;
+    }
+    .navbar-container .movil-menu{
+        height: 100%; 
+        width: 0;
+        position: fixed; 
+        z-index: 1; 
+        top: 0; 
+        left: 0;
+        background-color: var(--black-main); 
+        overflow-x: hidden; 
+    }
+    .movil-container-menu > *{
+        font-size: 2rem;
+    }
+    .movil-container-menu svg{
+        margin-top: 100px;
+    }
+    .movil-container-menu li:last-of-type{
+        margin-bottom: 200px;
     }
 
 }

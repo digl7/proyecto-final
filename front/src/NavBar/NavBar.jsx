@@ -9,7 +9,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = (props) => {
     const openMenu = () =>{
-        
         document.getElementById("menu-open").style.display="block";
         document.getElementById("menu-open").style.width= "100%";
     }
@@ -18,8 +17,7 @@ const NavBar = (props) => {
     }
 
     const bars = <FontAwesomeIcon onClick={openMenu} className="hamburger-menu" icon={faBars} />
-    
-    const times = <FontAwesomeIcon onClick={closeMenu} className="" icon={faTimes} />
+    const times = <FontAwesomeIcon onClick={closeMenu} className="yellow times" icon={faTimes} />
 
     return (
         <div className="navbar-container">
@@ -49,11 +47,12 @@ const NavBar = (props) => {
                             {/* MENÚ DEL MÓVIL AL HACER CLICK */}
 
                             <div id="menu-open"  className="movil-menu">
-                                <ul>
+                                <ul className="movil-container-menu">
+                                     {times}
                                     <li>Filtrar</li>
                                     <li>Mi lista</li>
                                     <li> <Link to="/login"> Iniciar sesión </Link> </li>
-                                    {times}
+                                    
                                 </ul>
                             </div>
                     </ul>
