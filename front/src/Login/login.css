@@ -122,3 +122,96 @@
     background-color: var(--yellow-main);
     color: black;
 }
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .login-block{
+        box-shadow: none;
+        width: 100%;
+    }
+    .login-block .options{
+        display: none;
+    }
+    .login-block .info{
+        height: 78%;
+        border: none;
+    }
+    .login-block .info form{
+        width: 100%;
+    }
+
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .login-block{
+        box-shadow: none;
+        width: 100%;
+    }
+    .login-block .options{
+        display: none;
+    }
+    .login-block .info{
+        height: 78%;
+        border: none;
+    }
+    .login-block .info form{
+        width: 100%;
+    }
+
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .login-block{
+        box-shadow: none;
+        width: 100%;
+    }
+    .login-block .options{
+        display: none;
+    }
+    .login-block .info{
+        height: 78%;
+        border: none;
+    }
+    .login-block .info form{
+        width: 100%;
+    }
+
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .login-block{
+        box-shadow: none;
+        width: 100%;
+    }
+    .login-block .options{
+        display: none;
+    }
+    .login-block .info{
+        height: 78%;
+        border: none;
+    }
+    .login-block .info form{
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .login-block{
+        box-shadow: none;
+        width: 100%;
+    }
+    .login-block .options{
+        display: none;
+    }
+    .login-block .info{
+        height: 78%;
+        border: none;
+    }
+    .login-block .info form{
+        width: 100%;
+    }
+
+}
