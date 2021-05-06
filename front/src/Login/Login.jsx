@@ -7,11 +7,24 @@ import Recover from '../Recover/Recover'
 
 const Login = () => {
     const [isLogin, setIsLogin] = useState("Login")
+    const closeMenu = () =>{
+        document.getElementById("menu-open").style.width= "0";
+    }
 
+    const closeClick  =(option) =>{
+        setIsLogin(option)
+        closeMenu()
+    }
 
     return (
         <div className="login-container">
-            <NavBar/>
+            
+            <NavBar 
+                handleIsLogin={() => closeClick("Login") }
+                handleIsRegister={() => closeClick("Register")}
+                handleIsRecover={() => closeClick("Recover")}
+            />
+
             <main>
                 <div className="login-block">
                     <div className="options">
@@ -28,7 +41,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="info">
-                        
+                    
                         { 
                             isLogin === 'Login' ? <LoginForm 
                                                     handleIsRegister={() => setIsLogin("Register")}

@@ -67,14 +67,16 @@ const Home = () => {
         searchMovie() 
     }, [search])
 
-
     return (
         <div className="home-container">        
             <NavBar
+                handleSearch = {() => setSearch("")}
                 handleChange = {(e) => setSearch(e.target.value)}
             />;
             {/* Cuando loading sea false (al terminar la llamada api) se renderiza el main */}
+
             { !isLoading && 
+            
             <main>
                 { console.log(movies) }
                 <div className="home-movie-cards">                        

@@ -42,9 +42,9 @@ const LoginForm = (props) => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
-                    <p>¿No tienes cuenta? <span onClick={props.handleIsRegister} class="yellow"> Regístrate </span></p>
+                    <p>¿No tienes cuenta? <span onClick={props.handleIsRegister} className="yellow"> Regístrate </span></p>
                     
-                    <p>¿Has olvidado tu contraseña? <span onClick={props.handleIsRecover} class="yellow"> Recupérala </span></p>
+                    <p>¿Has olvidado tu contraseña? <span onClick={props.handleIsRecover} className="yellow"> Recupérala </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}
                     <button>ACCEDER</button>
                 </div>

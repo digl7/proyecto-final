@@ -96,6 +96,16 @@
     color: black;
 }
 
+body::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-main);
+    outline: 1px solid slategrey;
+  }
+
+body::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--black-main);
+}
+
 @media (min-width: 1025px) and (max-width: 1280px) {
 
     .home-movie-cards{
