@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 
 from blacklist import BLACKLIST
@@ -12,6 +13,7 @@ from resources.admin import Admin,AdminLovers
 
 # FLASK
 app = Flask(__name__)
+CORS(app)
 
 # CONFIGURACIÓN DE LA APLICACIÓN
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/proyectofinal'
@@ -31,12 +33,12 @@ def create_tables_and_roles():
     db.create_all()
 
     #Insert de los dos roles existentes. TODO: Hacer un seeder más eficiente
-    admin = RoleModel("admin")
-    user = RoleModel("user")
+    # admin = RoleModel("admin")
+    # user = RoleModel("user")
     
-    db.session.add(admin)
-    db.session.add(user)
-    db.session.commit()
+    # db.session.add(admin)
+    # db.session.add(user)
+    # db.session.commit()
 
 
 # FLASK JWT EXTENDED

@@ -3,38 +3,57 @@ import '../Login/login.css'
 const LoginForm = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [checkPassword, setCheckPassword] = useState('')
+    const [email, setEmail] = useState('')
     const [error, setError] = useState(null);
 
     const sendData = async (e) => {
         e.preventDefault();
-        if (!username.trim() || !password.trim() || !checkPassword.trim()) {
+        if (!username.trim() || !password.trim() || !email.trim()) {
           //si el campo está vacio
           setError("Rellena los campos");
           return;
         }
-        if (password !== checkPassword){
-            setError("Las contraseñas no coinciden")
-        }
         else {
           setError(null);
         }
-
-    }
+        const res = await fetch("http://127.0.0.1:5000/user/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            username: username,
+            password:password,
+            email:email,
+            role_type:"user"
+        }),
+    });
+    console.log(res)
+    };
     return (
         <Fragment>
             <h1>REGÍSTRATE</h1>
             <form onSubmit={sendData}>
                 <div className="form-container">
-                    <label htmlFor="username">Usuario</label>
+                    <label htmlFor="username">Nombre de usuario</label>
                     <input 
                         name="username" 
                         type="text"
                         id="username"
-                        alt="Escribe tu usuario"
-                        placeholder="Usuario"
+                        alt="Escribe tu nombre de usuario"
+                        placeholder="Nombre de usuario"
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
+                    />
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        name="email" 
+                        type="email"
+                        id="email"
+                        alt="Escribe tu email"
+                        placeholder="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                     />
                     <label htmlFor="password">Contraseña</label>
                     <input 
@@ -45,16 +64,6 @@ const LoginForm = (props) => {
                         placeholder="Contraseña"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
-                    />
-                    <label htmlFor="checkPassword">Repetir contraseña</label>
-                    <input 
-                        name="checkPassword" 
-                        type="password"
-                        id="checkPassword"
-                        alt="Escribe tu contraseña otra vez"
-                        placeholder="Repite la contraseña"
-                        onChange={(e) => setCheckPassword(e.target.value)}
-                        value={checkPassword}
                     />
                     <p>¿Ya estás registrado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}

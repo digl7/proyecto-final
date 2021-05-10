@@ -18,7 +18,6 @@ class AdminModel(db.Model):
     role = db.relationship('RoleModel')
 
     organization = db.Column(db.String(80), nullable=True)
-    usuariosGestionados = db.relationship('LoverModel', backref='admin')
 
     def __init__(self, username, password, email, role_type):
         self.username = username

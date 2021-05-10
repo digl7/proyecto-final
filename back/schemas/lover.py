@@ -11,4 +11,3 @@ class LoverSchema(SQLAlchemySchema):
     password = auto_field()
     email = auto_field()
     role_type = auto_field()
-    city = auto_field()

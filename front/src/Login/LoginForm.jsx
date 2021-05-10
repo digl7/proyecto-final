@@ -15,8 +15,19 @@ const LoginForm = (props) => {
         } else {
           setError(null);
         }
-
-    }
+        const res = await fetch("http://127.0.0.1:5000/user/login", {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+                role_type: "user"
+            }),
+        });
+        console.log(res)
+        };
     return (
         <Fragment>
             <h1>INICIAR SESIÓN</h1>

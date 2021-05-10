@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import logo from "../Placeholder-photos/logo.png"
+import logo from "../Placeholder-photos/logo2.png"
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'

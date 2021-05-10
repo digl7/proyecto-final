@@ -17,8 +17,6 @@ class LoverModel(db.Model):
     role_type = db.Column(db.String(20), db.ForeignKey('roles.role_type'), nullable=False)
     role = db.relationship('RoleModel')
 
-    city = db.Column(db.String(80), nullable=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))
 
     def __init__(self, username, password, email, role_type):
         self.username = username
@@ -32,7 +30,6 @@ class LoverModel(db.Model):
             'username': self.username,
             'email': self.email,
             'role': self.role_type,
-            'city': self.city
         }
 
     # Métodos definidos para el ORM SQLAlchemy
