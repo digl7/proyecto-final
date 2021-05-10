@@ -63,7 +63,8 @@
 .options .login, .register, .recover{
     cursor: pointer;
     align-items: center;
-    display: flex;
+    display: flex;    
+    text-align: center;
     justify-content: center;
     height: 33.333333%;
 }

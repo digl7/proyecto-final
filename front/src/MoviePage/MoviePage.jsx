@@ -28,7 +28,7 @@ const MoviePage = () => {
     useEffect(() => {
         async function getMovie() {
             const request = await axios.get(search)
-            setMovie(request.data)
+            setMovie(request.data) 
             setCast(request.data.credits.cast)
             setGenres(request.data.genres)
             setIsLoading(false)
