@@ -28,7 +28,6 @@ const LoginForm = (props) => {
             role_type:"user"
         }),
     });
-    console.log(res)
     };
     return (
         <Fragment>
