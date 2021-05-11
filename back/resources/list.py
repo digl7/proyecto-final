@@ -25,19 +25,16 @@ from flask_jwt_extended import (
 
 _list_creation_parser = reqparse.RequestParser()
 _list_creation_parser.add_argument('name', type=str, required=True, help="This field cannot be blank.")
-_list_creation_parser.add_argument('external_id', type=str, required=True, help="This field cannot be blank.")
 
 class ListCreation(Resource):
     def post(self, user_id):
         data = _list_creation_parser.parse_args()
 
-        # list = ListModel(data["name"], data["external_id"], user_id)
-        list = ListModel(data["name"], data["external_id"], user_id)
+        list = ListModel(data["name"], user_id)
         try:
             list.save_to_db()
         except:
             return {"message": "Error al crear la lista."}, 500
-        
         return {"message": "Lista creada con éxito."}, 201
 
 class AllLists(Resource):

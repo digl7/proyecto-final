@@ -9,6 +9,5 @@ class ListSchema(SQLAlchemySchema):
 
     id = auto_field()
     name = auto_field()
-    external_id = auto_field()
     user_id = auto_field()
     

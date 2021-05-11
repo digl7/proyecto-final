@@ -7,14 +7,13 @@ class ListModel(db.Model):
     # Atributos de la lista
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    external_id = db.Column(db.Integer, nullable=False)
 
     #id de user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    movies = db.relationship('MovieModel')
 
-    def __init__(self, name, external_id, user_id):
+    def __init__(self, name, user_id):
         self.name = name,
-        self.external_id = external_id,
         self.user_id = user_id
 
     def json(self):
@@ -36,11 +35,9 @@ class ListModel(db.Model):
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
         
-    def find_by_name(cls, _name):
-        return cls.query.filter_by(name=_name).first()
-        
-    def find_by_external_id(cls, _external_id):
-        return cls.query.filter_by(external_id=_external_id).first()
+    @classmethod  
+    def find_by_name(cls, name):
+        return cls.query.filter_by(name=name).first()
 
 
 
