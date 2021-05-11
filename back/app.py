@@ -8,7 +8,6 @@ from blacklist import BLACKLIST
 from models import RoleModel
 
 from resources.user import User, UserRegister, UserLogin, UserLogout,UserActivate, TokenRefresh
-from resources.lover import Lover
 from resources.admin import Admin,AdminLovers
 
 # FLASK
@@ -61,7 +60,7 @@ api.add_resource(UserActivate, '/user/activate/<string:token>')
 api.add_resource(TokenRefresh, '/refresh')  # Genera un nuevo token de acceso
 
 # Lover Resources
-api.add_resource(Lover, '/lover/<int:lover_id>')
+api.add_resource(User, '/user/<int:user_id>')
 
 #Admin Resources
 api.add_resource(Admin, '/admin/<int:admin_id>')

@@ -4,13 +4,11 @@ from utils import generate_token_email, verify_token_email, EmailConfirmationSer
 
 # Model imports
 from models.user import UserModel
-from models.lover import LoverModel
 from models.role import RoleModel
 from models.admin import AdminModel
 # Schemas import
-from schemas.user import UserSchema
-from schemas.lover import LoverSchema
 from schemas.admin import AdminSchema
+from schemas.user import UserSchema
 
 from flask_jwt_extended import (
     create_access_token,
@@ -19,6 +17,7 @@ from flask_jwt_extended import (
     get_jwt_identity,
     create_refresh_token
 )
+
 from blacklist import BLACKLIST
 
 # REQUEST PARSER - REGISTRO DE USUARIO
@@ -86,23 +85,23 @@ class UserRegister(Resource):
             return {"message": "This roles doesnt exists"}, 400
 
         if data['role_type'] == "user":
-            lover = LoverModel(**data)
+            user = UserModel(**data)
 
-            if LoverModel.find_by_username(username=data['username']) or AdminModel.find_by_username(username=data['username']):
+            if UserModel.find_by_username(username=data['username']) or AdminModel.find_by_username(username=data['username']):
                 return {"message": "This username alreadys exists"}, 400
 
-            if LoverModel.find_by_email(email=data['email']) or AdminModel.find_by_email(email=data['email']) :
+            if UserModel.find_by_email(email=data['email']) or AdminModel.find_by_email(email=data['email']) :
                 return {"message": "This email alreadys exists"}, 400
 
             try:
-                lover.save_to_db()
+                user.save_to_db()
             except:
                 return {"message": "An error occurred creating the user."}, 500
 
-            email_token_confirmation = generate_token_email(lover.email, salt='activate')
+            email_token_confirmation = generate_token_email(user.email, salt='activate')
             print(email_token_confirmation)
 
-            email_confirmation_service = EmailConfirmationService(email_token_confirmation, lover.email)
+            email_confirmation_service = EmailConfirmationService(email_token_confirmation, user.email)
             email_confirmation_service.send_email_confirmation()
 
             return {"message": "User created successfully."}, 201
@@ -111,10 +110,10 @@ class UserRegister(Resource):
         if data['role_type'] == "admin":
             admin = AdminModel(**data)
 
-            if AdminModel.find_by_username(username=data['username']) or LoverModel.find_by_username(username=data['username']):
+            if AdminModel.find_by_username(username=data['username']) or UserModel.find_by_username(username=data['username']):
                 return {"message": "This username alreadys exists"}, 400
 
-            if AdminModel.find_by_email(email=data['email']) or LoverModel.find_by_email(email=data['email']):
+            if AdminModel.find_by_email(email=data['email']) or UserModel.find_by_email(email=data['email']):
                 return {"message": "This email alreadys exists"}, 400
 
             try:
@@ -135,19 +134,19 @@ class UserLogin(Resource):
     def post(self):
         data = _user_login_parser.parse_args()
         
-        lover = LoverModel.find_by_username(data['username'])
+        user = UserModel.find_by_username(data['username'])
         admin = AdminModel.find_by_username(data['username'])
 
-        if lover:
+        if user:
 
-            lover_schema = LoverSchema()
-            lover_json = lover_schema.dump(lover)
+            user_schema = UserSchema()
+            user_json = user_schema.dump(user)
 
             # Comprobamos username y contraseña. TODO: Hashear contraseña
-            if lover and (lover.password == data['password']):
-                access_token = "Bearer " + create_access_token(identity=lover.id, fresh=True)
-                refresh_token = "Bearer " + create_refresh_token(lover.id)
-                return {'user': lover_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
+            if user and (user.password == data['password']):
+                access_token = "Bearer " + create_access_token(identity=user.id, fresh=True)
+                refresh_token = "Bearer " + create_refresh_token(user.id)
+                return {'user': user_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
         
         if admin:
 
@@ -169,12 +168,12 @@ class UserActivate(Resource):
         if email is False:
             return {'msg': 'invalid token or token expired'}, 400
 
-        lover = LoverModel.find_by_email(email=email)
+        user = UserModel.find_by_email(email=email)
         admin = AdminModel.find_by_email(email=email)
 
-        if lover:
-            lover.email_confirmed = True
-            lover.save_to_db()
+        if user:
+            user.email_confirmed = True
+            user.save_to_db()
             return {'msg': 'User verificated correctly! LOVER'}, 200
 
         if admin:
@@ -182,7 +181,7 @@ class UserActivate(Resource):
             admin.save_to_db()
             return {'msg': 'User verificated correctly! ADMIN'}, 200
 
-        if not lover and not admin:
+        if not user and not admin:
             return {'msg': 'user not found'}, 400
 
 
