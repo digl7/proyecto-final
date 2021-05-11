@@ -4,12 +4,10 @@ from utils import generate_token_email, verify_token_email, EmailConfirmationSer
 
 # Model imports
 from models.user import UserModel
-from models.lover import LoverModel
 from models.role import RoleModel
 from models.admin import AdminModel
 # Schemas import
 from schemas.user import UserSchema
-from schemas.lover import LoverSchema
 from schemas.admin import AdminSchema
 
 from flask_jwt_extended import (

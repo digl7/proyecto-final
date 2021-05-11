@@ -9,6 +9,8 @@ import noavatar from "../Placeholder-photos/no_avatar.jpg"
 
 
 const MoviePage = () => {  
+    //Input del comentario  
+    const [comment, setComment] = useState('')
     
     let posterPath = "https://image.tmdb.org/t/p/w500" //El poster con mas calidad
     let profilePhoto = "https://image.tmdb.org/t/p/w300" //Foto de perfil de cada actor
@@ -38,7 +40,7 @@ const MoviePage = () => {
 
     }, []) 
 
-
+ 
     return (
 
         <div className="moviePage-container">
@@ -92,20 +94,22 @@ const MoviePage = () => {
                     </div>
                 </div>
                 <div className="movie-comments">
-                    <h2>Comentarios (X)</h2>
-                    
-                    <div className="comment">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere temporibus consequuntur 
-                            praesentium nostrum nihil quaerat reprehenderit, iusto, perspiciatis fuga vero rerum dolor
-                        </p>
-                    </div>
-                    <div className="comment">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere temporibus consequuntur 
-                            praesentium nostrum nihil quaerat reprehenderit, iusto, perspiciatis fuga vero rerum dolor
-                        </p>
-                    </div>
+
+                    <h2>Comentarios</h2>
+                    <form onSubmit  className="form-comment">
+                        <label htmlFor="comment">¡Escribe tu comentario!</label>
+
+                        <input 
+                            type="text" 
+                            name="comment"
+                            onChange={(e) => setComment(e.target.value)}
+                            value={comment}
+                        />
+
+                        <div className="comments">
+                            {/* Aquí iria el recorrido de todos los comentarios */}
+                        </div>
+                    </form>
                 </div>
                 
             </main>

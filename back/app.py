@@ -1,3 +1,4 @@
+from resources.comment import AllComments, CommentCreation
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
@@ -9,6 +10,10 @@ from models import RoleModel
 
 from resources.user import User, UserRegister, UserLogin, UserLogout,UserActivate, TokenRefresh
 from resources.admin import Admin,AdminLovers
+
+from resources.comment import CommentCreation, AllComments
+
+from resources.list import ListCreation, AllLists
 
 # FLASK
 app = Flask(__name__)
@@ -31,7 +36,7 @@ def create_tables_and_roles():
     # Crea las tablas de la BD e inserta los dos roles en la tabla Roles
     db.create_all()
 
-    #Insert de los dos roles existentes. TODO: Hacer un seeder más eficiente
+    # Insert de los dos roles existentes. TODO: Hacer un seeder más eficiente
     # admin = RoleModel("admin")
     # user = RoleModel("user")
     
@@ -61,6 +66,14 @@ api.add_resource(TokenRefresh, '/refresh')  # Genera un nuevo token de acceso
 
 # Lover Resources
 api.add_resource(User, '/user/<int:user_id>')
+
+#comments
+api.add_resource(CommentCreation, '/comment/<int:user_id>')
+api.add_resource(AllComments, '/comments')
+
+#List
+api.add_resource(ListCreation, '/list/<int:user_id>')
+api.add_resource(AllLists, '/lists')
 
 #Admin Resources
 api.add_resource(Admin, '/admin/<int:admin_id>')

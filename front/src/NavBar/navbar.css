@@ -45,7 +45,8 @@ li:hover{
 }
 
 .navbar-container .logo{
-    width: 100px;
+    width: 220px;
+    margin-top: 37px;
 }
 
 
@@ -102,9 +103,6 @@ li:hover{
     .navbar-container nav ul {
         font-size: 1rem;
     }
-    .navbar-container .logo{
-        width: 60px;
-    }
     .navbar-container .movil-menu{
         height: 100%; 
         width: 0;
@@ -147,9 +145,6 @@ li:hover{
     }
     .navbar-container nav ul {
         font-size: 1rem;
-    }
-    .navbar-container .logo{
-        width: 60px;
     }
     .navbar-container .movil-menu{
         height: 100%; 
@@ -196,7 +191,7 @@ li:hover{
         font-size: 1rem;
     }
     .navbar-container .logo{
-        width: 60px;
+        width: 180px;
     }
     .navbar-container .movil-menu{
         height: 100%; 
@@ -242,7 +237,8 @@ li:hover{
         font-size: 1rem;
     }
     .navbar-container .logo{
-        width: 60px;
+        width: 80px;
+        margin-top: 15px;
     }
     .navbar-container .movil-menu{
         height: 100%; 

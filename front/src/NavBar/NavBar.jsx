@@ -2,7 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import './navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import logo from "../Placeholder-photos/logo2.png"
+import big_logo from "../Placeholder-photos/big_logo.svg"
+import small_logo from "../Placeholder-photos/small_logo.svg"
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -28,7 +29,11 @@ const NavBar = (props) => {
             <header>
                 <nav>
                     <ul>
-                        <li> <Link onClick={props.handleSearch} to ="/"><img className="logo" alt="Logo, volver al home" src={logo} alt=""/></Link></li>
+                        <li> 
+                            <Link onClick={props.handleSearch} to ="/">
+                                <img className="logo" alt="Logo, volver al home" srcSet={big_logo} alt=""/>
+                            </Link>
+                        </li>
                             <li className="navbar-search"> 
                             <Link to="/">
                                 <label htmlFor="search"></label>

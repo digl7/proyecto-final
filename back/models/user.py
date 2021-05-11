@@ -14,6 +14,9 @@ class UserModel(db.Model):
     role_type = db.Column(db.String(20), db.ForeignKey('roles.role_type'), nullable=False)
     role = db.relationship('RoleModel')
 
+    comments = db.relationship('CommentModel')
+    lists = db.relationship('ListModel')
+
     def __init__(self, username, password, email, role_type):
         self.username = username
         self.password = password

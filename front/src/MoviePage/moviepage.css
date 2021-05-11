@@ -124,3 +124,7 @@
     color: var(--black-main);
     transition: 0.3s;
 }
+
+.movie-comments {
+    padding-bottom: 20px;
+}
