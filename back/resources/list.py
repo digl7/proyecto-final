@@ -14,6 +14,7 @@ from models.list import ListModel
 from schemas.admin import AdminSchema
 from schemas.user import UserSchema
 from schemas.comment import CommentSchema
+from schemas.list import ListSchema
 
 from flask_jwt_extended import (
     create_access_token,

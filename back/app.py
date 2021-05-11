@@ -1,3 +1,4 @@
+from resources.movie import MovieCreation
 from resources.comment import AllComments, CommentCreation
 from flask import Flask
 from flask_restful import Api
@@ -14,6 +15,8 @@ from resources.admin import Admin,AdminLovers
 from resources.comment import CommentCreation, AllComments
 
 from resources.list import ListCreation, AllLists
+
+from resources.movie import MovieCreation, AllMovies
 
 # FLASK
 app = Flask(__name__)
@@ -74,6 +77,10 @@ api.add_resource(AllComments, '/comments')
 #List
 api.add_resource(ListCreation, '/list/<int:user_id>')
 api.add_resource(AllLists, '/lists')
+
+#movie
+api.add_resource(MovieCreation, '/movie/<int:list_id>')
+api.add_resource(AllMovies, '/movies')
 
 #Admin Resources
 api.add_resource(Admin, '/admin/<int:admin_id>')
