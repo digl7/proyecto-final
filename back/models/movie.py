@@ -17,7 +17,8 @@ class MovieModel(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'external_id': self.external_id
+            'external_id': self.external_id,
+            "list_id" : self.list_id
         }
 
     # Métodos definidos para el ORM SQLAlchemy

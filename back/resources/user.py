@@ -129,6 +129,15 @@ class UserRegister(Resource):
 
             return {"message": "User created successfully."}, 201
 
+class AllUsers(Resource):
+    def get(self):
+        try:
+            users = UserModel.query.all()
+            print(users)
+        except:
+            return {"message": "Error al mostrar las listas."}, 500
+        return [UserModel.json(user) for user in users]
+
 
 class UserLogin(Resource):
     def post(self):

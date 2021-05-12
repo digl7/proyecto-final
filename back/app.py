@@ -9,7 +9,7 @@ from flask_cors import CORS
 from blacklist import BLACKLIST
 from models import RoleModel
 
-from resources.user import User, UserRegister, UserLogin, UserLogout,UserActivate, TokenRefresh
+from resources.user import User, UserRegister, UserLogin, UserLogout,UserActivate, TokenRefresh, AllUsers
 from resources.admin import Admin,AdminLovers
 
 from resources.comment import CommentCreation, AllComments
@@ -61,14 +61,17 @@ def check_if_token_in_blacklist(decrypted_token, jwt_load):
 # RESOURCES
 
 # Auth Resources
-api.add_resource(UserRegister, '/user/register')
-api.add_resource(UserLogin, '/user/login')
-api.add_resource(UserLogout, '/user/logout')
 api.add_resource(UserActivate, '/user/activate/<string:token>')
 api.add_resource(TokenRefresh, '/refresh')  # Genera un nuevo token de acceso
 
 # Lover Resources
 api.add_resource(User, '/user/<int:user_id>')
+
+#user
+api.add_resource(AllUsers, '/users')
+api.add_resource(UserRegister, '/user/register')
+api.add_resource(UserLogin, '/user/login')
+api.add_resource(UserLogout, '/user/logout')
 
 #comments
 api.add_resource(CommentCreation, '/comment/<int:user_id>')

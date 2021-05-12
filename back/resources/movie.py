@@ -27,26 +27,37 @@ from flask_jwt_extended import (
 )
 
 _list_creation_parser = reqparse.RequestParser()
-_list_creation_parser.add_argument('list_id', type=str, required=True, help="This field cannot be blank.")
 _list_creation_parser.add_argument('external_id', type=str, required=True, help="This field cannot be blank.")
 
 class MovieCreation(Resource):
+    def post(self, list_id):
+        data = _list_creation_parser.parse_args()
+
+        movie = MovieModel(data["external_id"], list_id)
+        try:
+            movie.save_to_db()
+        except:
+            return {"message": "Pelicula NO añadida."}, 500
+        return {"message": "Pelicula añadida con éxito."}, 201
+
+class MovieDelete(Resource):
     def post(self):
         data = _list_creation_parser.parse_args()
 
-        list = ListModel(data["list_id"], data["external_id"])
+        movie = MovieModel(data["external_id"])
         try:
-            list.save_to_db()
+            movie.save_to_db()
         except:
             return {"message": "Pelicula error."}, 500
         return {"message": "Pelicula GOOD."}, 201
 
+
 class AllMovies(Resource):
     def get(self):
         try:
-            lists = ListModel.query.all()
-            print(lists)
+            movies = MovieModel.query.all()
+            print(movies)
         except:
             return {"message": "Error al mostrar las listas."}, 500
-        return [ListModel.json(list) for list in lists]
+        return [MovieModel.json(movie) for movie in movies]
         
