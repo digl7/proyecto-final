@@ -9,6 +9,8 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = (props) => {
+    var user_id = window.localStorage.getItem('user_id');
+    var user_name = window.localStorage.getItem('user_name');
 
     const openMenu = () =>{
         document.getElementById("menu-open").style.display="block";
@@ -51,8 +53,12 @@ const NavBar = (props) => {
                             </li>
                             <li className="filtrar">Filtrar</li>
                             <li className="myList">Mi lista</li>
-                            
+                            {/* Si hay cualquier usuario conectado, le muestra ese usuario, sino muestra la opción de INICIAR SESIÓN */}
+                            {user_id ? 
+                             <li className="login"> <Link to="/login"> {user_name} </Link> </li>
+                            : 
                             <li className="login"> <Link to="/login"> Iniciar sesión </Link> </li>
+                            }
                             <li>{bars}</li>
 
                             {/* MENÚ DEL MÓVIL AL HACER CLICK */}
@@ -63,7 +69,14 @@ const NavBar = (props) => {
                                     <li onClick={closeMenu} > <Link to="/"> Inicio </Link> </li>
                                     <li onClick={closeMenu} >Filtrar</li>
                                     <li onClick={closeMenu} >Mi lista</li>
-                                    <li onClick={props.handleIsLogin}> <Link  to="/login"> Iniciar sesión </Link> </li>
+
+                                    {
+                                        user_id ? <li onClick={props.handleIsLogin}> <Link  to="/login"> {user_name} </Link> </li> 
+                                        :
+                                        <li onClick={props.handleIsLogin}> <Link  to="/login"> Iniciar sesión </Link> </li>
+                                    }
+
+
                                     <li onClick={props.handleIsRegister}> <Link to="/login"> Regístrate </Link> </li>
                                     <li onClick={props.handleIsRecover}> <Link to="/login"> Recuperar contraseña </Link> </li>
                                 </ul>

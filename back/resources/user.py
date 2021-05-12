@@ -88,7 +88,7 @@ class UserRegister(Resource):
             user = UserModel(**data)
 
             if UserModel.find_by_username(username=data['username']) or AdminModel.find_by_username(username=data['username']):
-                return {"message": "This username alreadys exists"}, 400
+                return {"message": "Este usuario ya existe."}, 400
 
             if UserModel.find_by_email(email=data['email']) or AdminModel.find_by_email(email=data['email']) :
                 return {"message": "This email alreadys exists"}, 400
@@ -104,14 +104,14 @@ class UserRegister(Resource):
             email_confirmation_service = EmailConfirmationService(email_token_confirmation, user.email)
             email_confirmation_service.send_email_confirmation()
 
-            return {"message": "User created successfully."}, 201
+            return {"message": "Usuario creado con éxito."}, 201
 
         
         if data['role_type'] == "admin":
             admin = AdminModel(**data)
 
             if AdminModel.find_by_username(username=data['username']) or UserModel.find_by_username(username=data['username']):
-                return {"message": "This username alreadys exists"}, 400
+                return {"message": "Este usuario ya existe"}, 400
 
             if AdminModel.find_by_email(email=data['email']) or UserModel.find_by_email(email=data['email']):
                 return {"message": "This email alreadys exists"}, 400
@@ -119,7 +119,7 @@ class UserRegister(Resource):
             try:
                 admin.save_to_db()
             except:
-                return {"message": "An error occurred creating the user."}, 500
+                return {"message": "Ha ocurrido un error al crear el usuario."}, 500
 
             email_token_confirmation = generate_token_email(admin.email, salt='activate')
             print(email_token_confirmation)
@@ -127,7 +127,7 @@ class UserRegister(Resource):
             email_confirmation_service = EmailConfirmationService(email_token_confirmation, admin.email)
             email_confirmation_service.send_email_confirmation()
 
-            return {"message": "User created successfully."}, 201
+            return {"message": "Usuario creado correctamente."}, 201
 
 class AllUsers(Resource):
     def get(self):
@@ -192,9 +192,6 @@ class UserActivate(Resource):
 
         if not user and not admin:
             return {'msg': 'user not found'}, 400
-
-
-
 
 class UserLogout(Resource):
     @jwt_required()

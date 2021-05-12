@@ -11,4 +11,5 @@ class CommentSchema(SQLAlchemySchema):
     text = auto_field()
     external_id = auto_field()
     user_id = auto_field()
+    timestamp = auto_field()
     

@@ -40,23 +40,25 @@ class MovieCreation(Resource):
             return {"message": "Pelicula NO añadida."}, 500
         return {"message": "Pelicula añadida con éxito."}, 201
 
-class MovieDelete(Resource):
-    def post(self):
-        data = _list_creation_parser.parse_args()
+#        admin = AdminModel.find_by_id(admin_id)
+        # if not admin:
+        #     return {'message': 'User not found'}, 404
+        # admin.delete_from_db()
+        # return {'message': 'User Deleted'}, 200
 
-        movie = MovieModel(data["external_id"])
-        try:
-            movie.save_to_db()
-        except:
-            return {"message": "Pelicula error."}, 500
-        return {"message": "Pelicula GOOD."}, 201
+class MovieDelete(Resource):
+    def post(self, external_id):
+        movie = MovieModel.find_by_external_id(external_id)
+        if not movie:
+            return {"message": "Pelicula no encontrada."}, 500
+        movie.delete_from_db()
+        return {"message": "Pelicula borrada."}, 201
 
 
 class AllMovies(Resource):
     def get(self):
         try:
             movies = MovieModel.query.all()
-            print(movies)
         except:
             return {"message": "Error al mostrar las listas."}, 500
         return [MovieModel.json(movie) for movie in movies]

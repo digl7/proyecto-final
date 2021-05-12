@@ -26,7 +26,11 @@ const LoginForm = (props) => {
                 role_type: "user"
             }),
         });
-        console.log(res)
+        const data = await res.json() 
+        localStorage.setItem('user_id', data.user.id)
+        
+        localStorage.setItem('user_name', data.user.username)
+        console.log(data.user.id)
         };
     return (
         <Fragment>

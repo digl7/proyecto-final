@@ -5,12 +5,20 @@ import axios from 'axios'
 import notfound from "../Placeholder-photos/nf.png"
 import noavatar from "../Placeholder-photos/no_avatar.jpg"
 
+import Moment from 'react-moment';
+import 'moment-timezone';
+
 
 
 
 const MoviePage = () => {  
-    //Input del comentario  
-    const [comment, setComment] = useState('')
+    //Input del comentario 
+    const [inputComment, setInputComment] = useState('') 
+    //Todos los comentarios de la pelicula
+    const [comments, setComments] = useState([])
+
+    
+    var user_id = window.localStorage.getItem('user_id');
     
     let posterPath = "https://image.tmdb.org/t/p/w500" //El poster con mas calidad
     let profilePhoto = "https://image.tmdb.org/t/p/w300" //Foto de perfil de cada actor
@@ -24,6 +32,8 @@ const MoviePage = () => {
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87'
     let id = window.location.href.split("/movie/")[1] // ID de la película en la que das click
     let search = "https://api.themoviedb.org/3/movie/"+id+"?"+apikey+"&language=es-ES&append_to_response=credits"
+    let searchComments = "http://127.0.0.1:5000/comment/view/"+id
+    let commentCreate = "http://127.0.0.1:5000/comment/"+user_id
 
     // https://api.themoviedb.org/3/movie/460465?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits mortal kombat json (prueba)
 
@@ -37,9 +47,21 @@ const MoviePage = () => {
             return request
         }
         getMovie()
+        getComments()
 
     }, []) 
 
+    const getComments = async ()=> {
+        const request = await axios.get(searchComments)
+        setComments(request.data)
+    }
+
+    const sendComment = async() => {
+        let config = {text: inputComment,external_id: id}
+        const request = await axios.post(commentCreate, config)
+        console.log(request)
+        
+    }
  
     return (
 
@@ -94,22 +116,37 @@ const MoviePage = () => {
                     </div>
                 </div>
                 <div className="movie-comments">
-
                     <h2>Comentarios</h2>
-                    <form onSubmit  className="form-comment">
-                        <label htmlFor="comment">¡Escribe tu comentario!</label>
+                        {comments.length === 0 && <p>No hay ningún comentario. ¡Di algo!</p>}
+                        <label htmlFor="inputComment">¡Escribe tu comentario!</label>
 
-                        <input 
+                        <textarea
+                            rows="2"
                             type="text" 
-                            name="comment"
-                            onChange={(e) => setComment(e.target.value)}
-                            value={comment}
+                            name="inputComment"
+                            onChange={(e) => setInputComment(e.target.value)}
+                            value={inputComment}
                         />
+                        <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
+                        {
+                            comments.map((comment) =>
+                            <div key={comment.id} className="comment">
 
-                        <div className="comments">
-                            {/* Aquí iria el recorrido de todos los comentarios */}
-                        </div>
-                    </form>
+                                <div className="comment-username">
+                                    <span>{comment.user.username} - </span>
+                                    <span><Moment fromNow>{comment.timestamp}</Moment></span>
+                                </div>
+
+                                <div className="comment-timestamp">
+                                    <span></span>
+                                </div>
+
+                                <div className="comment-text">
+                                    <span>{comment.text}</span>
+                                </div>
+
+                            </div>
+                        )}
                 </div>
                 
             </main>

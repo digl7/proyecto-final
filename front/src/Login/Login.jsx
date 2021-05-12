@@ -11,7 +11,7 @@ const Login = () => {
         document.getElementById("menu-open").style.width= "0";
     }
 
-    const closeClick  =(option) =>{
+    const closeClick =(option) =>{
         setIsLogin(option)
         closeMenu()
     }

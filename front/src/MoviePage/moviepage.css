@@ -126,5 +126,45 @@
 }
 
 .movie-comments {
-    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1px;
+}
+.movie-comments .comment p{
+    margin: 0;
+    padding: 0;
+}
+.movie-comments .comment{
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--yellow-main);
+
+    padding: 20px 0;
+}   
+.comment .username{
+    font-size: 2rem;
+    color: var(--yellow-main);
+    text-decoration: initia;
+}
+
+.movie-comments .comment .text{
+    padding-left: 15px;
+}
+.movie-comments label{
+    margin-right: 10px;
+    color: white;
+}
+.movie-comments .sendComment{
+    margin: 15px 0;
+    border: 1px solid var(--yellow-main);
+    background-color: var(--black-main);
+    color: var(--yellow-main);
+    transition: 0.3s;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.movie-comments .sendComment:hover{
+    background-color: var(--yellow-main);
+    color: var(--black-main);
 }

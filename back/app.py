@@ -12,11 +12,11 @@ from models import RoleModel
 from resources.user import User, UserRegister, UserLogin, UserLogout,UserActivate, TokenRefresh, AllUsers
 from resources.admin import Admin,AdminLovers
 
-from resources.comment import CommentCreation, AllComments
+from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
 from resources.list import ListCreation, AllLists
 
-from resources.movie import MovieCreation, AllMovies
+from resources.movie import MovieCreation, AllMovies, MovieDelete
 
 # FLASK
 app = Flask(__name__)
@@ -75,6 +75,7 @@ api.add_resource(UserLogout, '/user/logout')
 
 #comments
 api.add_resource(CommentCreation, '/comment/<int:user_id>')
+api.add_resource(CommentFromMovie, '/comment/view/<int:external_id>')
 api.add_resource(AllComments, '/comments')
 
 #List
@@ -84,6 +85,7 @@ api.add_resource(AllLists, '/lists')
 #movie
 api.add_resource(MovieCreation, '/movie/<int:list_id>')
 api.add_resource(AllMovies, '/movies')
+api.add_resource(MovieDelete, '/movie/delete/<int:external_id>')
 
 #Admin Resources
 api.add_resource(Admin, '/admin/<int:admin_id>')
