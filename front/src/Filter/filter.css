@@ -1,0 +1,36 @@
+.filter-container, .filter-container .content{
+    height: 100%;
+}
+
+.filter-container main{
+    height: 85vh;
+}
+
+.filter-container .content .main-search{
+    padding: 2rem;
+    border: 1px solid red;
+    width: 100%;
+}
+.filter-container .content form{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.filter-container .content .main-search input[type="text"]{
+    border: none;
+    padding: 1rem;
+    width: 40%;
+}
+.filter-container .content .main-search .search-button{
+    padding: 1rem 2rem;
+    background-color: var(--yellow-main);
+    border: none;
+    margin-right: 10%;
+    font-weight: bold;
+}
+.filter-container .advanced{
+    border: 1px solid var(--yellow-main);
+    background-color: var(--yellow-main);
+    padding: 1rem;
+}

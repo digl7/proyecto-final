@@ -2,7 +2,8 @@ import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import './navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import big_logo from "../Placeholder-photos/big_logo.svg"
+// import big_logo from "../Placeholder-photos/big_logo2.svg"
+import logo from "../Placeholder-photos/logo.png"
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -52,6 +53,8 @@ const NavBar = (props) => {
             window.location.reload()
         }
     }
+
+
     return (
         <div className="navbar-container">
             <header>
@@ -59,7 +62,12 @@ const NavBar = (props) => {
                     <ul>
                         <li> 
                             <Link onClick={props.handleSearch} to ="/">
-                                <img className="logo" alt="Logo, volver al home" srcSet={big_logo} alt=""/>
+                                <img 
+                                    className="logo" 
+                                    alt="Logo, volver al home" 
+                                    srcSet={logo} 
+                                    alt=""
+                                    />
                             </Link>
                         </li>
                             <li className="navbar-search"> 
@@ -83,7 +91,7 @@ const NavBar = (props) => {
                             {user_id ?
                             <>
                              <li className="login"> <Link to="/login"> {user_name} </Link> </li>
-                             <li onClick={handleLogout} >Logout</li>
+                             <li className="logout" onClick={handleLogout}  >Logout</li>
                             </>
                             : 
                             <li className="login"> <Link to="/login"> Iniciar sesión </Link> </li>
@@ -96,7 +104,7 @@ const NavBar = (props) => {
                                 <ul className="movil-container-menu">
                                      {times}
                                     <li onClick={closeMenu} > <Link to="/"> Inicio </Link> </li>
-                                    <li onClick={closeMenu} >Filtrar</li>
+                                    <li onClick={closeMenu} > <Link to="/filter"> Filtrar </Link>  </li>
                                     <li onClick={closeMenu} >Mi lista</li>
                                     {
                                         user_id ? <li onClick={handleLogout} >Logout</li> 
@@ -106,7 +114,7 @@ const NavBar = (props) => {
 
 
                                     <li onClick={props.handleIsRegister}> <Link to="/login"> Regístrate </Link> </li>
-                                    <li onClick={props.handleIsRecover}> <Link to="/login"> Recuperar contraseña </Link> </li>
+                                    <li onClick={props.handleIsRecover}> <Link to="/login"> Activar Email </Link> </li>
                                 </ul>
                             </div>
                     </ul>
