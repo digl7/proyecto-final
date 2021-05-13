@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import './navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,18 +11,34 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 const NavBar = (props) => {
     var user_id = window.localStorage.getItem('user_id');
     var user_name = window.localStorage.getItem('user_name');
-
+    
     const openMenu = () =>{
         document.getElementById("menu-open").style.display="block";
         document.getElementById("menu-open").style.width= "100%";
     }
 
     const closeMenu = () =>{
+        
+        document.getElementById("menu-open").style.display="none";
         document.getElementById("menu-open").style.width= "0";
-    }
 
+    }
+    
     const bars = <FontAwesomeIcon onClick={openMenu} className="hamburger-menu" icon={faBars} />
     const times = <FontAwesomeIcon onClick={closeMenu} className="yellow times" icon={faTimes} />
+
+    //Para manejar el CSS del navbar y que funcione bien el menú desplegable al cambiar de responsive móvil -> escritorio.
+    const handleResize = () => {
+        if (window.innerWidth > 1280) {
+            document.getElementById("menu-open").style.display="none";
+            document.getElementById("menu-open").style.width= "0";
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize)
+    })
+
 
 
 

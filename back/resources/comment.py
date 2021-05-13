@@ -42,7 +42,7 @@ class CommentCreation(Resource):
 class CommentFromMovie(Resource):
     def get(self, external_id):
         commentList = []
-        comments = CommentModel.query.filter_by(external_id=external_id).all()
+        comments = CommentModel.query.filter_by(external_id=external_id).order_by(CommentModel.timestamp.desc()).all()
         for comment in comments:
             commentJson = comment.json()
             user = UserModel.query.filter_by(id=commentJson["user_id"]).first()

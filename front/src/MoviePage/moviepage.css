@@ -142,15 +142,8 @@
 
     padding: 20px 0;
 }   
-.comment .username{
-    font-size: 2rem;
-    color: var(--yellow-main);
-    text-decoration: initia;
-}
 
-.movie-comments .comment .text{
-    padding-left: 15px;
-}
+
 .movie-comments label{
     margin-right: 10px;
     color: white;
@@ -167,4 +160,18 @@
 .movie-comments .sendComment:hover{
     background-color: var(--yellow-main);
     color: var(--black-main);
+}
+
+.movie-comments .error{
+    color: #dc3545;
+}
+/*Margen de la primera línea (usuario + hora)*/
+.movie-comments .comment .comment-username span{
+    color: var(--yellow-main);
+}
+.movie-comments .comment .comment-username span:first-of-type{
+    margin-left: 15px;
+}
+.movie-comments .comment .comment-text{
+    margin-left: 30px;
 }

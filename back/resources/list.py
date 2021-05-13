@@ -47,3 +47,10 @@ class AllLists(Resource):
             return {"message": "Error al mostrar las listas."}, 500
         return [ListModel.json(list) for list in lists]
         
+class ListbyID(Resource):
+    def get(self, list_id):
+        try:
+            lists = ListModel.query.filter_by(id=list_id).first()
+            return lists.json()
+        except:
+            return {"message": "Error al mostrar las listas."}, 500

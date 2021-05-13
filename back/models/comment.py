@@ -40,6 +40,8 @@ class CommentModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+    
+
 
     @classmethod
     def find_by_id(cls, _id):

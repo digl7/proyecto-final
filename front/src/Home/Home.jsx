@@ -39,7 +39,6 @@ const Home = () => {
 
         //isLoading a false para que cuando termine de hacer toda la petición le de tiempo al render cargarlo bien. 
         setIsLoading(false)
-
         return request
     }
 

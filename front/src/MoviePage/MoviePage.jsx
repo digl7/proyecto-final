@@ -16,6 +16,7 @@ const MoviePage = () => {
     const [inputComment, setInputComment] = useState('') 
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
+    const [error, setError] = useState('')
 
     
     var user_id = window.localStorage.getItem('user_id');
@@ -57,11 +58,20 @@ const MoviePage = () => {
     }
 
     const sendComment = async() => {
-        let config = {text: inputComment,external_id: id}
-        const request = await axios.post(commentCreate, config)
-        console.log(request)
+        if(inputComment===""){
+            setError("¡Escribe algo!")
+        }else{
+            let config = {text: inputComment,external_id: id}
+            const request = await axios.post(commentCreate, config)
+            console.log(request)
+            setError("")
+            setInputComment("")
+            getComments()
+        }
+        
         
     }
+
  
     return (
 
@@ -119,7 +129,6 @@ const MoviePage = () => {
                     <h2>Comentarios</h2>
                         {comments.length === 0 && <p>No hay ningún comentario. ¡Di algo!</p>}
                         <label htmlFor="inputComment">¡Escribe tu comentario!</label>
-
                         <textarea
                             rows="2"
                             type="text" 
@@ -127,6 +136,7 @@ const MoviePage = () => {
                             onChange={(e) => setInputComment(e.target.value)}
                             value={inputComment}
                         />
+                        <span className="error">{error}</span> 
                         <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
                         {
                             comments.map((comment) =>
@@ -146,7 +156,8 @@ const MoviePage = () => {
                                 </div>
 
                             </div>
-                        )}
+                        )
+                        }
                 </div>
                 
             </main>

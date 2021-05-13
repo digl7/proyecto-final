@@ -1,10 +1,14 @@
 import React, { Fragment, useState } from 'react'
+import { useHistory } from "react-router-dom";
+
 import './login.css'
 
 const LoginForm = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null);
+
+    let history = useHistory();
 
     const sendData = async (e) => {
         e.preventDefault();
@@ -26,11 +30,15 @@ const LoginForm = (props) => {
                 role_type: "user"
             }),
         });
-        const data = await res.json() 
-        localStorage.setItem('user_id', data.user.id)
-        
-        localStorage.setItem('user_name', data.user.username)
-        console.log(data.user.id)
+        console.log(res.status)
+        const data = await res.json()
+        if (res.status === 200){
+            localStorage.setItem('user_id', data.user.id)
+            localStorage.setItem('user_name', data.user.username)
+            history.push("/")
+        } else{
+            setError("Datos incorrectos")
+        }
         };
     return (
         <Fragment>

@@ -27,8 +27,8 @@ def verify_token_email(token: str, max_age: int=1800, salt: str=None):
 # Clase para la implementación del envío de correo de confirmacion
 class EmailConfirmationService:
 
-    from_email = "yyoque.app@gmail.com"
-    password = "Quantika14"
+    from_email = "carteleraOnline@gmail.com"
+    password = "carteleraOnline"
     subject = "Email Confirmation"
 
     def __init__(self, message, to):
