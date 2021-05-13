@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import './navbar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import big_logo from "../Placeholder-photos/big_logo.svg"
-import small_logo from "../Placeholder-photos/small_logo.svg"
 
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +10,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 const NavBar = (props) => {
     var user_id = window.localStorage.getItem('user_id');
     var user_name = window.localStorage.getItem('user_name');
+    var access_token = window.localStorage.getItem('access_token');
+    var linkLogout = 'http://127.0.0.1:5000/user/logout'
     
     const openMenu = () =>{
         document.getElementById("menu-open").style.display="block";
@@ -39,9 +40,18 @@ const NavBar = (props) => {
         window.addEventListener("resize", handleResize)
     })
 
-
-
-
+    const handleLogout = async() =>{
+        const res = await fetch(linkLogout, {
+            method: "POST",
+            headers: {
+            "Authorization": access_token
+            }
+        });
+        if (res.status === 200){
+            localStorage.clear();
+            window.location.reload()
+        }
+    }
     return (
         <div className="navbar-container">
             <header>
@@ -70,8 +80,11 @@ const NavBar = (props) => {
                             <li className="filtrar">Filtrar</li>
                             <li className="myList">Mi lista</li>
                             {/* Si hay cualquier usuario conectado, le muestra ese usuario, sino muestra la opción de INICIAR SESIÓN */}
-                            {user_id ? 
+                            {user_id ?
+                            <>
                              <li className="login"> <Link to="/login"> {user_name} </Link> </li>
+                             <li onClick={handleLogout} >Logout</li>
+                            </>
                             : 
                             <li className="login"> <Link to="/login"> Iniciar sesión </Link> </li>
                             }
@@ -85,9 +98,8 @@ const NavBar = (props) => {
                                     <li onClick={closeMenu} > <Link to="/"> Inicio </Link> </li>
                                     <li onClick={closeMenu} >Filtrar</li>
                                     <li onClick={closeMenu} >Mi lista</li>
-
                                     {
-                                        user_id ? <li onClick={props.handleIsLogin}> <Link  to="/login"> {user_name} </Link> </li> 
+                                        user_id ? <li onClick={handleLogout} >Logout</li> 
                                         :
                                         <li onClick={props.handleIsLogin}> <Link  to="/login"> Iniciar sesión </Link> </li>
                                     }

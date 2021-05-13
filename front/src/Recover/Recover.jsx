@@ -18,8 +18,7 @@ const Recover = (props) => {
     }
     return (
         <Fragment>
-            <h1>REESTABLECER CONTRASEÑA</h1>
-            <p>¿Has olvidado tu contraseña?  No te precupes la tendrás de nuevo.</p>
+            <h1>ACTIVAR EMAIL</h1>
             <form onSubmit={sendData}> 
                 <div className="form-container">
                     <label htmlFor="email">Email</label>
@@ -32,7 +31,7 @@ const Recover = (props) => {
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
                     />
-                    <p>¿No la habías olvidado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión </span></p>
+                    <p>¿Has terminado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión</span>.</p>
                     {error ? <span className="text-danger">{error}</span> : null}
                     <button>ENVIAR</button>
                 </div>

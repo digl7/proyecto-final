@@ -149,6 +149,8 @@
     color: white;
 }
 .movie-comments .sendComment{
+    padding: 10px;
+    text-align: center;
     margin: 15px 0;
     border: 1px solid var(--yellow-main);
     background-color: var(--black-main);

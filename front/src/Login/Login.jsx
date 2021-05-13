@@ -37,7 +37,7 @@ const Login = () => {
 
                         </div>
                         <div onClick={() => setIsLogin("Recover")} className={isLogin==='Recover' ? "recover select" : "recover"}>
-                            <h2> RECUPERAR CONTRASEÑA </h2>
+                            <h2> ACTIVAR EMAIL </h2>
                         </div>
                     </div>
                     <div className="info">

@@ -18,6 +18,7 @@ const Home = () => {
     const posterPath = "https://image.tmdb.org/t/p/w300"
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
     const link = "https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate"
+    
 
     //UseEffect para la carga de peliculas cuando entras a la página y cuando le das al botón de cargar más.
     useEffect(() => {
@@ -77,6 +78,8 @@ const Home = () => {
             { !isLoading && 
             
             <main>
+                {/* Cuando entreas a la página principal (home, /) autofocus a la barra de búsqueda.  */}
+                {document.getElementById("search").focus()}
                 { console.log(movies) }
                 <div className="home-movie-cards">                        
                         { 

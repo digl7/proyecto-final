@@ -7,6 +7,7 @@ import noavatar from "../Placeholder-photos/no_avatar.jpg"
 
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { useHistory, Link } from "react-router-dom";
 
 
 
@@ -17,7 +18,8 @@ const MoviePage = () => {
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
     const [error, setError] = useState('')
-
+   
+    let history = useHistory();
     
     var user_id = window.localStorage.getItem('user_id');
     
@@ -58,7 +60,9 @@ const MoviePage = () => {
     }
 
     const sendComment = async() => {
+
         if(inputComment===""){
+            console.log(user_id)
             setError("¡Escribe algo!")
         }else{
             let config = {text: inputComment,external_id: id}
@@ -137,7 +141,12 @@ const MoviePage = () => {
                             value={inputComment}
                         />
                         <span className="error">{error}</span> 
+                         {user_id ? 
                         <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
+                        :
+                        
+                        <Link to="/login" className="sendComment">INICIA SESIÓN</Link>
+                        }
                         {
                             comments.map((comment) =>
                             <div key={comment.id} className="comment">

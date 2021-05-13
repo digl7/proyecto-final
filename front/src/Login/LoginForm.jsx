@@ -33,8 +33,10 @@ const LoginForm = (props) => {
         console.log(res.status)
         const data = await res.json()
         if (res.status === 200){
+            console.log(data)
             localStorage.setItem('user_id', data.user.id)
             localStorage.setItem('user_name', data.user.username)
+            localStorage.setItem('access_token', data.access_token)
             history.push("/")
         } else{
             setError("Datos incorrectos")
@@ -67,7 +69,7 @@ const LoginForm = (props) => {
                     />
                     <p>¿No tienes cuenta? <span onClick={props.handleIsRegister} className="yellow"> Regístrate </span></p>
                     
-                    <p>¿Has olvidado tu contraseña? <span onClick={props.handleIsRecover} className="yellow"> Recupérala </span></p>
+                    <p>¿Quieres activar tu cuenta? <span onClick={props.handleIsRecover} className="yellow"> Actívala </span></p>
                     {error ? <span className="text-danger">{error}</span> : null}
                     <button>ACCEDER</button>
                 </div>
