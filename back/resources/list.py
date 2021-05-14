@@ -54,3 +54,12 @@ class ListbyID(Resource):
             return lists.json()
         except:
             return {"message": "Error al mostrar las listas."}, 500
+
+class ListFromUser(Resource):
+    def get(self, user_id):
+        lists = ListModel.query.filter_by(user_id=user_id).all()
+        if len(lists) == 0:
+            return {"message": f"No hemos encontrado listas para el usuario {user_id}"}   
+        return [ListModel.json(list) for list in lists]
+
+                   

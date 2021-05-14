@@ -14,7 +14,7 @@ from resources.admin import Admin,AdminLovers
 
 from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
-from resources.list import ListCreation, AllLists, ListbyID
+from resources.list import ListCreation, AllLists, ListFromUser, ListbyID
 
 from resources.movie import MovieCreation, AllMovies, MovieDelete
 
@@ -82,7 +82,7 @@ api.add_resource(AllComments, '/comments')
 api.add_resource(ListCreation, '/list/<int:user_id>')
 api.add_resource(ListbyID, '/list/<int:list_id>')
 api.add_resource(AllLists, '/lists')
-
+api.add_resource(ListFromUser, '/lists/<int:user_id>')
 #movie
 api.add_resource(MovieCreation, '/movie/<int:list_id>')
 api.add_resource(AllMovies, '/movies')

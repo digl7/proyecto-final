@@ -19,7 +19,8 @@ class ListModel(db.Model):
     def json(self):
         return {
             'id': self.id,
-            'name': self.name
+            'name': self.name,
+            'user_id': self.user_id
         }
 
     # Métodos definidos para el ORM SQLAlchemy
@@ -34,6 +35,9 @@ class ListModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
+        
+    def find_by_user_id(cls, _user_id):
+        return cls.query.filter_by(user_id=_user_id).all()
         
     @classmethod  
     def find_by_name(cls, name):

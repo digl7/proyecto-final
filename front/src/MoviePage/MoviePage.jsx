@@ -7,7 +7,7 @@ import noavatar from "../Placeholder-photos/no_avatar.jpg"
 
 import Moment from 'react-moment';
 import 'moment-timezone';
-import { useHistory, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 
@@ -18,8 +18,8 @@ const MoviePage = () => {
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
     const [error, setError] = useState('')
-   
-    let history = useHistory();
+
+
     
     var user_id = window.localStorage.getItem('user_id');
     

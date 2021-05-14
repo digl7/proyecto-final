@@ -92,7 +92,7 @@ const NavBar = (props) => {
                             </Link>
                             </li>
                             <li className="filtrar"><Link to="/filter"> Filtrar</Link></li>
-                            <li className="myList">Mi lista</li>
+                            <li className="myList"><Link to ={`/list/${user_id}`}> Mi lista</Link></li>
                             {/* Si hay cualquier usuario conectado, le muestra ese usuario, sino muestra la opción de INICIAR SESIÓN */}
                             {user_id ?
                             <>
@@ -109,9 +109,10 @@ const NavBar = (props) => {
                             <div id="menu-open"  className="movil-menu">
                                 <ul className="movil-container-menu">
                                      {times}
+                                     {/* to={`/movie/${movie.id}`}> */}
                                     <li onClick={closeMenu} > <Link to="/"> Inicio </Link> </li>
                                     <li onClick={closeMenu} > <Link to="/filter"> Filtrar </Link>  </li>
-                                    <li onClick={closeMenu} >Mi lista</li>
+                                    <li onClick={closeMenu} > <Link to ={`/list/${user_id}`}> Mi lista</Link></li>
                                     {
                                         user_id ? <li onClick={handleLogout} >Logout</li> 
                                         :

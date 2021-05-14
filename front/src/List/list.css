@@ -1,0 +1,20 @@
+/* de momento para ver los colores */
+
+.list-container > *{
+    color: white;
+}
+
+.list-container{
+    
+    height: 100%;
+}
+.list-container main {
+    padding-top: 10px;
+    height: 85vh;
+}
+
+.list-container .mylists{
+    margin-top: 5px;
+    padding: 2rem;
+    border: 1px solid red;
+}

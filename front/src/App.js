@@ -4,6 +4,7 @@ import "./App.css";
 import Filter from "./Filter/Filter";
 
 import Home from "./Home/Home.jsx"
+import List from "./List/List";
 import Login from "./Login/Login.jsx"
 import MoviePage from "./MoviePage/MoviePage";
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" component={Login}></Route>
           <Route path="/movie/:id" component={MoviePage}></Route>    
           <Route path="/filter" component={Filter}></Route>
+          <Route path="/list/:id" component={List}></Route>
       
         </Switch>
       </BrowserRouter>
