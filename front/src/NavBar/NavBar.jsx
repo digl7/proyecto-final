@@ -52,6 +52,11 @@ const NavBar = (props) => {
             localStorage.clear();
             window.location.reload()
         }
+        if (res.status === 401){
+            alert("Tu sesión ha caducado y esto no puede pasar.. //TODO: hacerlo infinito")
+            localStorage.clear();
+            window.location.reload()
+        }
     }
 
 
@@ -69,6 +74,7 @@ const NavBar = (props) => {
                                     alt=""
                                     />
                             </Link>
+                            
                         </li>
                             <li className="navbar-search"> 
                             <Link to="/">
@@ -81,11 +87,11 @@ const NavBar = (props) => {
                                     placeholder="Buscar... " 
                                     type="text"
                                     onChange={props.handleChange}
-                                  
                                 /> 
+                                
                             </Link>
                             </li>
-                            <li className="filtrar">Filtrar</li>
+                            <li className="filtrar"><Link to="/filter"> Filtrar</Link></li>
                             <li className="myList">Mi lista</li>
                             {/* Si hay cualquier usuario conectado, le muestra ese usuario, sino muestra la opción de INICIAR SESIÓN */}
                             {user_id ?

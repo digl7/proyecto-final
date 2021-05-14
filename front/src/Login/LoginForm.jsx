@@ -37,6 +37,7 @@ const LoginForm = (props) => {
             localStorage.setItem('user_id', data.user.id)
             localStorage.setItem('user_name', data.user.username)
             localStorage.setItem('access_token', data.access_token)
+            localStorage.setItem('refresh_token', data.refresh_token)
             history.push("/")
         } else{
             setError("Datos incorrectos")

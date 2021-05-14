@@ -8,29 +8,92 @@
 
 .filter-container .content .main-search{
     padding: 2rem;
-    border: 1px solid red;
     width: 100%;
 }
 .filter-container .content form{
     align-items: center;
     display: flex;
-    justify-content: center;
-    width: 100%;
+    max-width: 100%;
+    justify-content: start;
 }
 .filter-container .content .main-search input[type="text"]{
     border: none;
     padding: 1rem;
+    margin-left: auto;
     width: 40%;
+
 }
 .filter-container .content .main-search .search-button{
     padding: 1rem 2rem;
     background-color: var(--yellow-main);
     border: none;
-    margin-right: 10%;
     font-weight: bold;
 }
 .filter-container .advanced{
-    border: 1px solid var(--yellow-main);
+    margin-left: 5%;
+    margin-right: auto;
+    border: none;
     background-color: var(--yellow-main);
     padding: 1rem;
+}
+
+.filter-container .content .visible{
+    display: flex;
+    transition: 0.3s;
+}
+
+.filter-container .hidden-content{
+    margin: auto;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.filter-container .hidden-content form{
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    
+}
+
+.filter-container .hidden-content .checkbox-content{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex: 0 0 26%;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    max-width: 200px;
+}
+.filter-container .hidden-content .checkbox-content input[type="checkbox"]{
+    margin-right: 5px;
+}
+.filter-container .hidden-content .checkbox-content input:checked + .genre-name{
+    color: var(--yellow-main);
+    font-weight: bold;
+}
+
+
+.hidden-content .search-button{
+    padding: 1.2rem 2.5rem;
+    background-color: var(--black-main);
+    border: 1px solid var(--yellow-main);
+    font-size: 1.2rem;
+    color: var(--yellow-main);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.hidden-content .search-button:hover{
+    background-color: var(--yellow-main);
+    border: 1px solid var(--black-main);
+    color: var(--black-main);
+    font-weight: bold;
+}
+
+.filter-container .movie-overview, .movie-title{
+    color: white;
 }

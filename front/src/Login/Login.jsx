@@ -34,7 +34,6 @@ const Login = () => {
                         </div>
                         <div onClick={() => setIsLogin("Register")} className={isLogin === 'Register' ? "register select" : "register"}>
                             <h2> REGÍSTRATE</h2>
-
                         </div>
                         <div onClick={() => setIsLogin("Recover")} className={isLogin==='Recover' ? "recover select" : "recover"}>
                             <h2> ACTIVAR EMAIL </h2>

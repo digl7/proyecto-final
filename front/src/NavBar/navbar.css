@@ -62,8 +62,9 @@ li:hover{
 }
 
 .navbar-search input::placeholder{
-    padding-left: 20px;
-    color: white;
+    padding-left: 10px;
+    font-size: 2rem;
+    color: gray;
 }
 
 .navbar-search input:focus::placeholder{
@@ -98,7 +99,7 @@ li:hover{
         cursor: pointer;
     }
     .navbar-container input{
-        font-size: 1.4rem;
+        font-size: 1.7rem;
     }
     .movil-menu .movil-container-menu{
         height: 100%;
@@ -168,8 +169,8 @@ li:hover{
         font-size: 2rem;
         cursor: pointer;
     }
-    .navbar-container input{
-        font-size: 1.4rem;
+    .navbar-container input::placeholder{
+        font-size: 1.2rem;
     }
     .movil-menu .movil-container-menu{
         height: 100%;
