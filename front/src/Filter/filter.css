@@ -14,7 +14,7 @@
     align-items: center;
     display: flex;
     max-width: 100%;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .filter-container .content .main-search input[type="text"]{
     border: none;

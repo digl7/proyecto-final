@@ -14,7 +14,28 @@
 }
 
 .list-container .mylists{
-    margin-top: 5px;
+    font-weight: bold;
     padding: 2rem;
-    border: 1px solid red;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
+}
+
+.list-container .mylists ul{    
+    display: flex;
+    justify-content: flex-start;
+}
+
+.list-container .mylists ul li{ 
+    font-size: 1.5rem;
+    margin: auto;
+}
+
+.list-container .mylists ul li:hover{
+    cursor: pointer;
+    color: var(--yellow-main);
+}
+
+.list-container .list-content{
+    margin: 2rem 5%;
 }

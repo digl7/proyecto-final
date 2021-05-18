@@ -10,7 +10,7 @@ class ListModel(db.Model):
 
     #id de user
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    movies = db.relationship('MovieModel')
+    movies = db.relationship('MovieModel', cascade="all,delete")
 
     def __init__(self, name, user_id):
         self.name = name,

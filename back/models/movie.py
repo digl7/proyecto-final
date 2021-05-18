@@ -40,7 +40,7 @@ class MovieModel(db.Model):
 
     @classmethod
     def find_by_list_id(cls, _list_id):
-        return cls.query.filter_by(id=_list_id).first()
+        return cls.query.filter_by(list_id=_list_id).all()
 
 
 

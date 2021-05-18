@@ -1,5 +1,3 @@
-from resources.movie import MovieCreation
-from resources.comment import AllComments, CommentCreation
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
@@ -14,9 +12,9 @@ from resources.admin import Admin,AdminLovers
 
 from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
-from resources.list import ListCreation, AllLists, ListFromUser, ListbyID
+from resources.list import ListCreation, AllLists, ListDelete, ListFromUser, ListbyID
 
-from resources.movie import MovieCreation, AllMovies, MovieDelete
+from resources.movie import AddMovie, AllMovies, MovieDelete, MovieFromList
 
 # FLASK
 app = Flask(__name__)
@@ -83,10 +81,13 @@ api.add_resource(ListCreation, '/list/<int:user_id>')
 api.add_resource(ListbyID, '/list/<int:list_id>')
 api.add_resource(AllLists, '/lists')
 api.add_resource(ListFromUser, '/lists/<int:user_id>')
+api.add_resource(ListDelete, '/list/delete/<int:id>')
+
 #movie
-api.add_resource(MovieCreation, '/movie/<int:list_id>')
+api.add_resource(AddMovie, '/movie/<int:list_id>')
 api.add_resource(AllMovies, '/movies')
 api.add_resource(MovieDelete, '/movie/delete/<int:external_id>')
+api.add_resource(MovieFromList, '/movie/list/<int:list_id>')
 
 #Admin Resources
 api.add_resource(Admin, '/admin/<int:admin_id>')

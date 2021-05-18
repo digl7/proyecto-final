@@ -29,22 +29,15 @@ from flask_jwt_extended import (
 _list_creation_parser = reqparse.RequestParser()
 _list_creation_parser.add_argument('external_id', type=str, required=True, help="This field cannot be blank.")
 
-class MovieCreation(Resource):
+class AddMovie(Resource):
     def post(self, list_id):
         data = _list_creation_parser.parse_args()
-
         movie = MovieModel(data["external_id"], list_id)
         try:
             movie.save_to_db()
         except:
             return {"message": "Pelicula NO añadida."}, 500
-        return {"message": "Pelicula añadida con éxito."}, 201
-
-#        admin = AdminModel.find_by_id(admin_id)
-        # if not admin:
-        #     return {'message': 'User not found'}, 404
-        # admin.delete_from_db()
-        # return {'message': 'User Deleted'}, 200
+        return {"message": f"Pelicula añadida con éxito a lista {list_id} ."}, 201
 
 class MovieDelete(Resource):
     def post(self, external_id):
@@ -52,7 +45,7 @@ class MovieDelete(Resource):
         if not movie:
             return {"message": "Pelicula no encontrada."}, 500
         movie.delete_from_db()
-        return {"message": "Pelicula borrada."}, 201
+        return {"message": f"Pelicula: {external_id}, borrada."}, 201
 
 
 class AllMovies(Resource):
@@ -60,6 +53,14 @@ class AllMovies(Resource):
         try:
             movies = MovieModel.query.all()
         except:
-            return {"message": "Error al mostrar las listas."}, 500
+            return {"message": "Error al mostrar las películas."}, 500
         return [MovieModel.json(movie) for movie in movies]
-        
+
+
+class MovieFromList(Resource):
+    def get(self, list_id):
+        movies = MovieModel.find_by_list_id(list_id)
+        if not movies:
+            return {"message": f"Error al mostrar las peliculas de la lista con id {list_id}."}, 500
+        return [MovieModel.json(movie) for movie in movies]
+

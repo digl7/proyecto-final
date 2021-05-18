@@ -9,6 +9,7 @@ from models.user import UserModel
 from models.role import RoleModel
 from models.admin import AdminModel
 from models.comment import CommentModel
+from models.movie import MovieModel
 from models.list import ListModel
 # Schemas import
 from schemas.admin import AdminSchema
@@ -40,10 +41,8 @@ class ListCreation(Resource):
 
 class AllLists(Resource):
     def get(self):
-        try:
-            lists = ListModel.query.all()
-            print(lists)
-        except:
+        lists = ListModel.query.all()
+        if not lists:
             return {"message": "Error al mostrar las listas."}, 500
         return [ListModel.json(list) for list in lists]
         
@@ -56,10 +55,31 @@ class ListbyID(Resource):
             return {"message": "Error al mostrar las listas."}, 500
 
 class ListFromUser(Resource):
-    def get(self, user_id):
-        lists = ListModel.query.filter_by(user_id=user_id).all()
-        if len(lists) == 0:
-            return {"message": f"No hemos encontrado listas para el usuario {user_id}"}   
-        return [ListModel.json(list) for list in lists]
+    # def get(self, user_id):
+    #     lists = ListModel.query.filter_by(user_id=user_id).all()
+    #     if len(lists) == 0:
+    #         return {"message": f"No hemos encontrado listas para el usuario {user_id}"}   
+    #     return [ListModel.json(list) for list in lists]
 
-                   
+    def get(self, user_id):
+        listofList = []
+        lists = ListModel.query.filter_by(user_id=user_id).all()
+        for list in lists:
+            listJson = list.json()
+            movies = MovieModel.query.filter_by(list_id=listJson["id"]).all()
+            movieList = []
+            for movie in movies:
+                movieJson = movie.json()
+                movieList.append(movieJson)
+                listJson["movie"] = movieList
+            listofList.append(listJson)
+        return listofList
+        
+
+class ListDelete(Resource):
+    def post(self, id):
+        list = ListModel.query.filter_by(id=id).first()
+        if not list:
+            return {"message": "Lista no encontrada."}, 500
+        list.delete_from_db()
+        return {"message": f"Lista: {id}, borrada."}, 201  
