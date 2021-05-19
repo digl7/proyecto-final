@@ -14,12 +14,37 @@
 }
 
 .list-container .mylists{
+    overflow-y: scroll;
+    overflow-y: hidden;
     font-weight: bold;
     padding: 2rem;
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.38);
 }
+
+.list-container .mylists ul{
+    gap: 15px;
+
+}
+
+/* Barra de las listas */
+
+.mylists::-webkit-scrollbar{
+    height: 7px;
+    border-radius: 3px;
+}
+
+
+.mylists::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-main);
+    border-radius: 3px;
+    width: 20px;
+    
+}
+
+/*  */
+
 
 .list-container .mylists ul{    
     display: flex;
@@ -38,4 +63,25 @@
 
 .list-container .list-content{
     margin: 2rem 5%;
+}
+
+.list-container .movies{
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+.list-container  .movies::-webkit-scrollbar{
+    height: 7px;
+    border-radius: 3px;
+}
+
+
+.list-container  .movies::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-main);
+    border-radius: 3px;
+    width: 20px;
+
 }

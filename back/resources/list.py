@@ -1,6 +1,7 @@
 from typing import List
 from flask_restful import Resource, reqparse
 from models import comment
+import requests
 
 from utils import generate_token_email, verify_token_email, EmailConfirmationService
 
@@ -70,7 +71,10 @@ class ListFromUser(Resource):
             movieList = []
             for movie in movies:
                 movieJson = movie.json()
-                movieList.append(movieJson)
+                movieJsonExId = str(movieJson["external_id"])
+                response = requests.get("https://api.themoviedb.org/3/movie/"+movieJsonExId+"?api_key=7d3b7c40d4e3aa199e88e96633259b87&language=es-ES")
+                data = response.json()
+                movieList.append(data)
                 listJson["movie"] = movieList
             listofList.append(listJson)
         return listofList

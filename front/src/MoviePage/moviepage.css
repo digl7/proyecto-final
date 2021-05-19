@@ -68,7 +68,7 @@
     
 }
 .moviePage-container .movie-cast::-webkit-scrollbar{
-    height: 5px;
+    height: 7px;
     border-radius: 3px;
 }
 

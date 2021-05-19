@@ -141,7 +141,7 @@ const MoviePage = () => {
                             value={inputComment}
                         />
                         <span className="error">{error}</span> 
-                         {user_id ? 
+                        {user_id ? 
                         <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
                         :
                         
