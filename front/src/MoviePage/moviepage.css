@@ -106,13 +106,32 @@
 
 .movie-title{
     display: flex;
-    justify-content: center;
     align-items: center;
+}
+
+.movie-description .list{
+    margin-bottom: 9px;
+}
+
+
+.movie-description .list button{
+    margin-left: 10px;
+    padding: 5px 15px;
+    background-color: var(--black-main);
+    color: var(--yellow-main);
+    border: 1px solid var(--yellow-main);
+}
+
+
+.movie-description .list button:hover{
+    transition: 0.125s;
+    background-color: var(--yellow-main);
+    color: var(--black-main);
 }
 
 .movie-title button{
     border: 1px solid var(--yellow-main);
-    padding: 20px;
+    padding: 6px;
     margin-right: 18px;
     color: var(--yellow-main);;
     font-weight: bold;

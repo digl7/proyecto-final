@@ -10,6 +10,9 @@ import 'moment-timezone';
 import {  Link } from "react-router-dom";
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 const MoviePage = () => {  
@@ -18,7 +21,8 @@ const MoviePage = () => {
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
     const [error, setError] = useState('')
-
+    const [lists, setLists] = useState([])
+    const [isAdding, setIsAdding] = useState(false)
 
     
     var user_id = window.localStorage.getItem('user_id');
@@ -38,7 +42,11 @@ const MoviePage = () => {
     let searchComments = "http://127.0.0.1:5000/comment/view/"+id
     let commentCreate = "http://127.0.0.1:5000/comment/"+user_id
 
-    // https://api.themoviedb.org/3/movie/460465?api_key=7d3b7c40d4e3aa199e88e96633259b87&append_to_response=credits mortal kombat json (prueba)
+
+    let listLink = 'http://127.0.0.1:5000/lists/'+user_id
+
+
+    const plus = <FontAwesomeIcon icon={faPlus} />
 
     useEffect(() => {
         async function getMovie() {
@@ -51,6 +59,7 @@ const MoviePage = () => {
         }
         getMovie()
         getComments()
+        getLists()
 
     }, []) 
 
@@ -76,6 +85,27 @@ const MoviePage = () => {
         
     }
 
+    const getLists = async() => {
+        const request = await axios.get(listLink)
+        const data  = request.data
+        console.log(request.data)
+        setLists(data)
+    }
+
+    const addMovie = async(e) => {
+        var list_id = e.target.id
+        const res = await fetch("http://127.0.0.1:5000/movie/"+list_id, {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                'external_id' : id
+            })
+        }
+        )
+    }
+
  
     return (
 
@@ -92,20 +122,32 @@ const MoviePage = () => {
                         <div className="movie-title">
                             <span>{movie.title} | </span>
                             <span>{movie.release_date.split("-")[0]}</span>
-                            <button>Añadir a mi lista</button>
-                            <button>Comentarios / Valorar</button>
+                            <button onClick={() => setIsAdding(!isAdding)} > {!isAdding ? "Añadir a mi lista" : "Cancelar"}  </button>
                         </div>
 
                         <div className="movie-genres">
                                 { 
                                     genres.map((genre, i) =>
                                     // Última posicion termina con punto.
-                                     <span key={genre.id} > {genres.length === i + 1 ? genre.name+"." : genre.name+", "  } </span>
+                                        <span key={genre.id} > {genres.length === i + 1 ? genre.name+"." : genre.name+", "  } </span>
                                     ) 
                                 }
                         </div>
                         <div className="movie-description">
-                            <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>
+                            {/* CONDICIÓN DE ISADDING LISTAS */}
+                            {    !isAdding ?  
+                            
+                                <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>    
+
+                                : 
+                                
+                                lists.map((list)=>
+                                    <div key={list.id} className="list">
+                                        <span> {list.name} </span> <button id={list.id} onClick={(e) => addMovie(e)} className="addToList">Añadir</button>   
+                                    </div>
+                                )
+                            }
+                           
                         </div>
   
                     </div>
