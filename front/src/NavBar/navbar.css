@@ -21,6 +21,11 @@
     font-size: 1.7rem;
 }
 
+/* quitar el cursor pointer al nombre de usuario en la barra de navegación */
+.navbar-container nav ul > .logged {
+    cursor: default;
+}
+
 a, a:hover{
     text-decoration: none;
     color: inherit;

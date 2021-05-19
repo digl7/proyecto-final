@@ -29,7 +29,7 @@ const Home = () => {
     const getMovies = async() => {
         const request = await axios.get(link)
         .then(resp => {
-            if (search === '' && page == 1){
+            if (search === '' && page === 1){
                 setPage(1)
                 setMovies(resp.data.results)
             } else{

@@ -28,8 +28,7 @@
 
 }
 
-/* Barra de las listas */
-
+/* Barra de scroll de las listas */
 .mylists::-webkit-scrollbar{
     height: 7px;
     border-radius: 3px;
@@ -43,17 +42,40 @@
     
 }
 
-/*  */
+.mylists ul form {
+    display: flex;
 
+}
+
+form .createList{
+    border: 1px solid var(--yellow-main);
+    background-color: var(--black-main);
+    color: var(--yellow-main);;
+    font-weight: bold;
+    padding: 10px;   
+}
+
+form .createList:hover{
+    transition: 0.3s;
+    background-color: var(--yellow-main);
+    color: var(--black-main);
+}
+
+.list-container .mylists ul .listCreate{    
+    font-weight: bold;
+    color: var(--yellow-main);
+    text-decoration: underline;
+    font-size: 2.1rem;
+}
 
 .list-container .mylists ul{    
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .list-container .mylists ul li{ 
     font-size: 1.5rem;
-    margin: auto;
+    margin: auto 0;
 }
 
 .list-container .mylists ul li:hover{
@@ -84,4 +106,14 @@
     border-radius: 3px;
     width: 20px;
 
+}
+
+.list-content .list-title{
+    font-size: 2.1rem;
+    text-transform: uppercase;
+    font-family:  'Antonio', sans-serif;
+    letter-spacing: 1px;
+}
+.list-content .list-edit{
+    color: var(--yellow-main);
 }

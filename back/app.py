@@ -14,7 +14,7 @@ from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
 from resources.list import ListCreation, AllLists, ListDelete, ListFromUser, ListbyID
 
-from resources.movie import AddMovie, AllMovies, MovieDelete, MovieFromList
+from resources.movie import AddMovie, AllMovies, MovieFromList
 
 # FLASK
 app = Flask(__name__)
@@ -86,7 +86,6 @@ api.add_resource(ListDelete, '/list/delete/<int:id>')
 #movie
 api.add_resource(AddMovie, '/movie/<int:list_id>')
 api.add_resource(AllMovies, '/movies')
-api.add_resource(MovieDelete, '/movie/delete/<int:external_id>')
 api.add_resource(MovieFromList, '/movie/list/<int:list_id>')
 
 #Admin Resources

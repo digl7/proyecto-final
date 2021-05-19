@@ -39,14 +39,6 @@ class AddMovie(Resource):
             return {"message": "Pelicula NO añadida."}, 500
         return {"message": f"Pelicula añadida con éxito a lista {list_id} ."}, 201
 
-class MovieDelete(Resource):
-    def post(self, external_id):
-        movie = MovieModel.find_by_external_id(external_id)
-        if not movie:
-            return {"message": "Pelicula no encontrada."}, 500
-        movie.delete_from_db()
-        return {"message": f"Pelicula: {external_id}, borrada."}, 201
-
 
 class AllMovies(Resource):
     def get(self):

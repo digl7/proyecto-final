@@ -71,7 +71,6 @@ const NavBar = (props) => {
                                     className="logo" 
                                     alt="Logo, volver al home" 
                                     srcSet={logo} 
-                                    alt=""
                                     />
                             </Link>
                             
@@ -96,7 +95,7 @@ const NavBar = (props) => {
                             {/* Si hay cualquier usuario conectado, le muestra ese usuario, sino muestra la opción de INICIAR SESIÓN */}
                             {user_id ?
                             <>
-                             <li className="login"> <Link to="/login"> {user_name} </Link> </li>
+                             <li className="login logged">  {user_name} </li>
                              <li className="logout" onClick={handleLogout}  >Logout</li>
                             </>
                             : 
