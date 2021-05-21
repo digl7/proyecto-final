@@ -16,7 +16,7 @@ const LoginForm = (props) => {
         else {
           setError(null);
         }
-        await fetch("http://127.0.0.1:5000/user/register", {
+        const res = await fetch("http://127.0.0.1:5000/user/register", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -27,7 +27,10 @@ const LoginForm = (props) => {
             email:email,
             role_type:"user"
         }),
-    });
+    }); if (res.status === 201){
+        // login correcto
+        //TODO: hacer push a login / home
+    }
     };
     return (
         <Fragment>

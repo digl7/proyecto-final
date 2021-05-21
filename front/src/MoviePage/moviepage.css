@@ -146,13 +146,21 @@
 
 .movie-comments {
     display: flex;
-    flex-direction: column;
     padding-bottom: 1px;
 }
 .movie-comments .comment p{
     margin: 0;
     padding: 0;
 }
+
+.movie-comments .left{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-right: 10px;
+}
+
 .movie-comments .comment{
     margin-bottom: 15px;
     display: flex;
@@ -175,8 +183,19 @@
     background-color: var(--black-main);
     color: var(--yellow-main);
     transition: 0.3s;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    width: 150px;
     font-weight: bold;
+}
+
+.movie-comments .right{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-left: 10px;
+    
+    margin-top: 70px;
 }
 .movie-comments .sendComment:hover{
     background-color: var(--yellow-main);
@@ -195,4 +214,9 @@
 }
 .movie-comments .comment .comment-text{
     margin-left: 30px;
+}
+.moviePage-container .yellow{
+    font-weight: bold;
+    color: var(--yellow-main);
+    text-decoration: underline;
 }

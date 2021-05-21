@@ -12,7 +12,7 @@ from resources.admin import Admin,AdminLovers
 
 from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
-from resources.list import ListCreation, AllLists, ListDelete, ListFromUser, ListbyID
+from resources.list import AddList, AllLists, ListDelete, ListFromUser, ListbyID, MovieDeleteFromList
 
 from resources.movie import AddMovie, AllMovies, MovieFromList
 
@@ -77,11 +77,12 @@ api.add_resource(CommentFromMovie, '/comment/view/<int:external_id>')
 api.add_resource(AllComments, '/comments')
 
 #List
-api.add_resource(ListCreation, '/list/<int:user_id>')
+api.add_resource(AddList, '/list/<int:user_id>')
 api.add_resource(ListbyID, '/list/<int:list_id>')
 api.add_resource(AllLists, '/lists')
-api.add_resource(ListFromUser, '/lists/<int:user_id>')
+api.add_resource(ListFromUser, '/lists/user/<int:user_id>')
 api.add_resource(ListDelete, '/list/delete/<int:id>')
+api.add_resource(MovieDeleteFromList, '/list/<int:list_id>/delete/<int:external_id>')
 
 #movie
 api.add_resource(AddMovie, '/movie/<int:list_id>')

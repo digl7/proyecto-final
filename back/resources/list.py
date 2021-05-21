@@ -29,7 +29,7 @@ from flask_jwt_extended import (
 _list_creation_parser = reqparse.RequestParser()
 _list_creation_parser.add_argument('name', type=str, required=True, help="This field cannot be blank.")
 
-class ListCreation(Resource):
+class AddList(Resource):
     def post(self, user_id):
         data = _list_creation_parser.parse_args()
 
@@ -49,19 +49,19 @@ class AllLists(Resource):
         
 class ListbyID(Resource):
     def get(self, list_id):
-        try:
-            lists = ListModel.query.filter_by(id=list_id).first()
-            return lists.json()
-        except:
-            return {"message": "Error al mostrar las listas."}, 500
+        listofList = []
+        lists = ListModel.query.filter_by(id=list_id).first()
+        listJson = lists.json()
+        movies = MovieModel.query.filter_by(list_id=listJson["id"]).all()
+        movieList = []
+        for movie in movies:
+            movieJson = movie.json()
+            movieList.append(movieJson)
+            listJson["movie"] = movieList
+        listofList.append(listJson)
+        return listofList
 
 class ListFromUser(Resource):
-    # def get(self, user_id):
-    #     lists = ListModel.query.filter_by(user_id=user_id).all()
-    #     if len(lists) == 0:
-    #         return {"message": f"No hemos encontrado listas para el usuario {user_id}"}   
-    #     return [ListModel.json(list) for list in lists]
-
     def get(self, user_id):
         listofList = []
         lists = ListModel.query.filter_by(user_id=user_id).all()
@@ -87,3 +87,19 @@ class ListDelete(Resource):
             return {"message": "Lista no encontrada."}, 500
         list.delete_from_db()
         return {"message": f"Lista: {id}, borrada."}, 201  
+
+class MovieDeleteFromList(Resource):
+    def post(self, list_id, external_id):
+        lists = ListModel.query.filter_by(id=list_id).first()
+        listJson = lists.json()
+        movies = MovieModel.query.filter_by(list_id=listJson["id"]).all()
+        movieList = []
+        for movie in movies:
+            movieJson = movie.json()
+            movieList.append(movieJson)
+            listJson["movie"] = movieList
+            movieDelete = MovieModel.query.filter_by(external_id = external_id).first()
+            if not movieDelete:
+                return {"message" : "Pelicula no encontrada"}
+        movieDelete.delete_from_db()
+        return {"message": f"pelicula: {external_id}, borrada."}, 201  

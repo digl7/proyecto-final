@@ -33,11 +33,17 @@ class AddMovie(Resource):
     def post(self, list_id):
         data = _list_creation_parser.parse_args()
         movie = MovieModel(data["external_id"], list_id)
-        try:
-            movie.save_to_db()
-        except:
-            return {"message": "Pelicula NO añadida."}, 500
-        return {"message": f"Pelicula añadida con éxito a lista {list_id} ."}, 201
+        movie_exid = MovieModel.query.filter_by(list_id=list_id, external_id=data["external_id"]).first()
+        print(movie_exid)
+        if not movie_exid:
+            try:
+                movie.save_to_db()
+                return {"message": f"Pelicula añadida con éxito a lista {list_id}."}, 201
+            except:
+                return {"message": "Error al añadir la película."}, 500
+        else:
+            return {"message": "No se puede añadir una película repetida."}, 500
+        
 
 
 class AllMovies(Resource):

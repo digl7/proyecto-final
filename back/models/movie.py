@@ -33,7 +33,7 @@ class MovieModel(db.Model):
     @classmethod
     def find_by_id(cls, _id):
         return cls.query.filter_by(id=_id).first()
-        
+
     @classmethod
     def find_by_external_id(cls, _external_id):
         return cls.query.filter_by(external_id=_external_id).first()

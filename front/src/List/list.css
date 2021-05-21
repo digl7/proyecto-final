@@ -117,3 +117,8 @@ form .createList:hover{
 .list-content .list-edit{
     color: var(--yellow-main);
 }
+
+.movies .yellow{
+    color: var(--yellow-main);
+    text-decoration: underline;
+}

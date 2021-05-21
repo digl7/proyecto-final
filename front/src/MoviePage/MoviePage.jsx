@@ -43,7 +43,7 @@ const MoviePage = () => {
     let commentCreate = "http://127.0.0.1:5000/comment/"+user_id
 
 
-    let listLink = 'http://127.0.0.1:5000/lists/'+user_id
+    let listLink = 'http://127.0.0.1:5000/lists/user/'+user_id
 
 
     const plus = <FontAwesomeIcon icon={faPlus} />
@@ -104,6 +104,9 @@ const MoviePage = () => {
             })
         }
         )
+        if (res.status === 500){
+            alert("peli repetida")
+        }
     }
 
  
@@ -140,12 +143,12 @@ const MoviePage = () => {
                                 <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>    
 
                                 : 
-                                
+                                lists.length === 0 ? <span> No tienes ninguna lista creada, ¡ve a <Link to={`/list/${user_id}`} className="yellow">mi listas</Link> para crear una! </span> :
                                 lists.map((list)=>
                                     <div key={list.id} className="list">
-                                        <span> {list.name} </span> <button id={list.id} onClick={(e) => addMovie(e)} className="addToList">Añadir</button>   
+                                        <span> {list.name} </span> <button id={list.id} onClick={(e) => addMovie(e)} className="addToList">Añadir</button>
                                     </div>
-                                )
+                                )   
                             }
                            
                         </div>
@@ -172,23 +175,26 @@ const MoviePage = () => {
                     </div>
                 </div>
                 <div className="movie-comments">
-                    <h2>Comentarios</h2>
-                        {comments.length === 0 && <p>No hay ningún comentario. ¡Di algo!</p>}
-                        <label htmlFor="inputComment">¡Escribe tu comentario!</label>
-                        <textarea
-                            rows="2"
-                            type="text" 
-                            name="inputComment"
-                            onChange={(e) => setInputComment(e.target.value)}
-                            value={inputComment}
-                        />
-                        <span className="error">{error}</span> 
-                        {user_id ? 
-                        <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
-                        :
-                        
-                        <Link to="/login" className="sendComment">INICIA SESIÓN</Link>
-                        }
+                    <div className="left">
+                        <h2>Comentarios</h2>
+                            {comments.length === 0 && <p>No hay ningún comentario. ¡Di algo!</p>}
+                            <label htmlFor="inputComment">¡Escribe tu comentario!</label>
+                            <textarea
+                                rows="8"
+                                type="text" 
+                                name="inputComment"
+                                onChange={(e) => setInputComment(e.target.value)}
+                                value={inputComment}
+                            />
+                            <span className="error">{error}</span> 
+                            {user_id ? 
+                            <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />
+                            :
+                            
+                            <Link to="/login" className="sendComment">INICIA SESIÓN</Link>
+                            }
+                    </div>
+                    <div className="right">
                         {
                             comments.map((comment) =>
                             <div key={comment.id} className="comment">
@@ -209,6 +215,7 @@ const MoviePage = () => {
                             </div>
                         )
                         }
+                    </div>
                 </div>
                 
             </main>

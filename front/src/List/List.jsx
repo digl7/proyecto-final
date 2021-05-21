@@ -4,6 +4,8 @@ import './list.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
+import notfound from "../Placeholder-photos/nf.png"
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -20,7 +22,7 @@ const List = () => {
     var user_id = window.localStorage.getItem('user_id');
     const [error, setError] = useState(null)
     const [lists, setLists] = useState([])
-    let listLink = 'http://127.0.0.1:5000/lists/'+user_id
+    let listLink = 'http://127.0.0.1:5000/lists/user/'+user_id
     const posterPath = "https://image.tmdb.org/t/p/w300"
 
 
@@ -38,7 +40,7 @@ const List = () => {
         }
         getLists()
     
-    }, [isLoading])
+    }, [isLoading, isCreating])
 
 
     const createList = async(e) => {
@@ -66,35 +68,34 @@ const List = () => {
     return (
         <div className="list-container">
             <NavBar/>    
-            {!isLoading &&
             <main>
-
                 <div className="mylists">
+
                     <ul>
-                     {!isCreating ? 
-                        <li className="listCreate" onClick={() => setIsCreating(true)}  >  Crear lista</li>
+                    {isLoading ? user_id ? 'Cargando tus listas' :
+                     
+                        <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }    </li>
                         :
                         <form onSubmit={createList} >
                             <input 
                                 type="text"
+                                placeholder="Título de la lista"
                                 onChange={(e) => setListName(e.target.value)}
                                 value={listName}
                             />
                             {error}
                             <button className="createList" type="submit">Crear Lista</button>
                         </form>
-                        }
+                        } 
                         {
                             lists.map((list) =>
                                 <li key={list.id}>  <a href={`#`+list.id}>{list.name} </a></li> 
                             )
                         }
-                        
+                    
                     </ul>
                 </div>
-                {
-                    lists.length===0 ? <span>¡No tienes ninguna lista creada!</span> : null
-                }
+                {/* Espero a que la página se renderice y compruebo si hay usuario conectado, y si la longitud de la lista es igual a 0, en ese caso no tiene listas creadas. */}
                 {
                     lists.map((list) =>
                         <div key={list.id} className="list-content">
@@ -102,7 +103,6 @@ const List = () => {
                             <span id={list.id} className="list-title"> {list.name} </span>
                             <div className="option">
                                 {/* Cuando le das click se cambia al estado contrario. Empieza en false. */}
-                               
                                 <span  onClick={() => setIsEditing(!isEditing)} className="list-edit" > {isEditing ? "Parar de editar":"editar" } </span>             
                                 <div className="movies">
                                 {
@@ -111,7 +111,7 @@ const List = () => {
                                     <Link key={movie.id} to={`/movie/${movie.id}`}>
                                         <div className="home-movie-card">
                                             <div className="movie">
-                                                <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
+                                                <img src={ movie.poster_path === null ? notfound : posterPath+movie.poster_path} alt=""/>
                                                 <div className="movie-info">
                                                     <span className="movie-title">{movie.title}</span>
                                                     <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
@@ -119,20 +119,14 @@ const List = () => {
                                             </div>
                                         </div> 
                                     </Link>
-                                    ) : <span>¡No tienes ninguna película, añade alguna!</span>
+                                    ) : <span>¡No tienes ninguna película, añade alguna! Prueba aquí: <Link className="yellow" to="/">Home</Link>, o aquí: <Link className="yellow" to="/filter">Filtrar</Link></span>
                                 }
                                 </div>
-                                
                             </div>
-                        
                         </div>
                     ) 
                 }
-                
             </main>
-            }   
-
-            
         </div>
     )
 }
