@@ -68,18 +68,30 @@ const MoviePage = () => {
         setComments(request.data)
     }
 
-    const sendComment = async() => {
-
+    const sendComment = async(e) => {
+        e.preventDefault()
         if(inputComment===""){
-            console.log(user_id)
             setError("¡Escribe algo!")
         }else{
-            let config = {text: inputComment,external_id: id}
-            const request = await axios.post(commentCreate, config)
-            console.log(request)
-            setError("")
-            setInputComment("")
-            getComments()
+            const res = await fetch(commentCreate, {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    text: inputComment,
+                    external_id: id
+                })
+            }
+            ) 
+            if(res.status === 500){
+                setError("Demasiados caracteres")
+            }
+            else if(res.status === 201){
+                setError("")
+                setInputComment("")
+                getComments()
+            }
         }
         
         
@@ -107,8 +119,15 @@ const MoviePage = () => {
         if (res.status === 500){
             alert("peli repetida")
         }
+        if (res.status === 201){
+            alert("peli añadida")
+        }
     }
 
+    useEffect(() => {
+        if(inputComment.length <= 240)
+        setError("")
+    }, [inputComment])
  
     return (
 
@@ -179,6 +198,7 @@ const MoviePage = () => {
                         <h2>Comentarios</h2>
                             {comments.length === 0 && <p>No hay ningún comentario. ¡Di algo!</p>}
                             <label htmlFor="inputComment">¡Escribe tu comentario!</label>
+                            <div className="textarea">
                             <textarea
                                 rows="8"
                                 type="text" 
@@ -186,6 +206,10 @@ const MoviePage = () => {
                                 onChange={(e) => setInputComment(e.target.value)}
                                 value={inputComment}
                             />
+                            <span className="wordcounter" style={inputComment.length > 240 ? {color: "red", fontWeight: "bold"} : null}>
+                                {inputComment.length} / 240
+                            </span>
+                            </div>
                             <span className="error">{error}</span> 
                             {user_id ? 
                             <input type="button" className="sendComment" onClick={sendComment} value="ENVIAR" />

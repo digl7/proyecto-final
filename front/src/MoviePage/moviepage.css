@@ -146,7 +146,7 @@
 
 .movie-comments {
     display: flex;
-    padding-bottom: 1px;
+    padding-bottom: 50px;
 }
 .movie-comments .comment p{
     margin: 0;
@@ -161,13 +161,47 @@
     padding-right: 10px;
 }
 
+.movie-comments .right{
+    width: 50%;
+    display: flex;
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+    flex-direction: column;
+    padding-left: 10px;
+    margin-top: 70px;
+}
+.moviePage-container .movie-comments .right::-webkit-scrollbar{
+    width: 10px;
+    border-radius: 1px;
+}
+
+
+.moviePage-container .movie-comments .right::-webkit-scrollbar-thumb {
+    background-color: var(--yellow-main);
+    border-radius: 1px;
+}
+.movie-comments .left textarea{
+    width: 100%;
+}
+
+
+.movie-comments .left .textarea{
+    position: relative;
+}
+.movie-comments .left .textarea .wordcounter{
+    position: absolute;
+    top: 170px;
+    right: 35px;
+    color: black;
+}
 .movie-comments .comment{
-    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--yellow-main);
-
+    border-bottom: 1px solid var(--yellow-main);
     padding: 20px 0;
+    min-width: 100%;
+
 }   
 
 
@@ -184,19 +218,11 @@
     color: var(--yellow-main);
     transition: 0.3s;
     font-size: 1.5rem;
-    width: 150px;
+    width: 30%;
     font-weight: bold;
 }
 
-.movie-comments .right{
-    width: 50%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    padding-left: 10px;
-    
-    margin-top: 70px;
-}
+
 .movie-comments .sendComment:hover{
     background-color: var(--yellow-main);
     color: var(--black-main);
@@ -209,11 +235,9 @@
 .movie-comments .comment .comment-username span{
     color: var(--yellow-main);
 }
-.movie-comments .comment .comment-username span:first-of-type{
-    margin-left: 15px;
-}
+
 .movie-comments .comment .comment-text{
-    margin-left: 30px;
+    margin-left: 15px;
 }
 .moviePage-container .yellow{
     font-weight: bold;

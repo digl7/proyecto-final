@@ -27,10 +27,13 @@ const LoginForm = (props) => {
             email:email,
             role_type:"user"
         }),
-    }); if (res.status === 201){
-        // login correcto
-        //TODO: hacer push a login / home
-    }
+    }); 
+        if (res.status === 400){
+            alert("Ya existe ese usuario o email")
+        } else if (res.status === 201){
+            alert("registrado correctamente")
+            
+        }
     };
     return (
         <Fragment>
