@@ -72,11 +72,11 @@ const List = () => {
                 <div className="mylists">
 
                     <ul>
-                    {isLoading ? user_id ? 'Cargando tus listas' :
+                        {isLoading ? 'cargando' : !isCreating ? <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }   </li> : null}
                      
-                        <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }    </li>
-                        :
-                        <form onSubmit={createList} >
+                        
+                        
+                        {isCreating ?  <form onSubmit={createList} >
                             <input 
                                 type="text"
                                 placeholder="Título de la lista"
@@ -85,8 +85,10 @@ const List = () => {
                             />
                             {error}
                             <button className="createList" type="submit">Crear Lista</button>
-                        </form>
+                        </form> : null
                         } 
+                       
+                        
                         {
                             lists.map((list) =>
                                 <li key={list.id}>  <a href={`#`+list.id}>{list.name} </a></li> 
