@@ -6,19 +6,23 @@ import RegisterForm from '../Register/RegisterForm'
 import Recover from '../Recover/Recover'
 
 const Login = () => {
+    //Estado que va cambiando entre login, register y recover para css y para llamar a los componentes LoginForm.jsx, RegisterForm.jsx y Recover.jsx
     const [isLogin, setIsLogin] = useState("Login")
+
     const closeMenu = () =>{
         document.getElementById("menu-open").style.width= "0";
     }
 
-    const closeClick =(option) =>{
+
+    //si das click en una opción (en el menú del móvil) isLogin cambia a esa opción y se cierra el menú.
+    const closeClick = (option) =>{
         setIsLogin(option)
         closeMenu()
     }
 
     return (
         <div className="login-container">
-            
+            {/* Los props que vienen de la barra de navegación (el menú móvil) */}
             <NavBar 
                 handleIsLogin={() => closeClick("Login") }
                 handleIsRegister={() => closeClick("Register")}
@@ -40,7 +44,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="info">
-                    
+                    {/* Props que vienen de LoginForm, RegisterForm y Recover, para cambiar el estado de isLogin y poder cambiar entre las diferentes pestañas */}
                         { 
                             isLogin === 'Login' ? <LoginForm 
                                                     handleIsRegister={() => setIsLogin("Register")}

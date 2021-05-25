@@ -9,19 +9,26 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const Filter = () => {
-
+    //Este estado lo uso para que cuando se rendirece la página le de tiempo a cargar los géneros. 
     const [isLoading, setIsLoading] = useState(true)
     let api_key = "api_key=7d3b7c40d4e3aa199e88e96633259b87" 
 
-    let genresLink = "https://api.themoviedb.org/3/genre/movie/list?"+api_key+"&language=es-ES"//búsqueda de los géneros
-    const [genres, setGenres] = useState([]) //lista de todos los géneros de la api
-    const [isHidden, setIsHidden] = useState(false) //para mostrar los géneros
-    var genreListChecked = '' //string con todos los géneros checked === true
-   
+    //búsqueda de los géneros
+    let genresLink = "https://api.themoviedb.org/3/genre/movie/list?"+api_key+"&language=es-ES"
+    //lista de todos los géneros de la api
+    const [genres, setGenres] = useState([]) 
+    //para mostrar los géneros
+    const [isHidden, setIsHidden] = useState(false) 
+    //string con todos los géneros checked === true
+    var genreListChecked = '' 
+    //la barra de búsqueda
     const [search, setSearch] = useState('')
+    //una ayuda para poner el poster de cada película
     const posterPath = "https://image.tmdb.org/t/p/w300"
+    //lista de las películas
     const [movies, setMovies] = useState([])
-    let movieSearch = "" //enlace para buscar después en la llamada api
+    //enlace para buscar después en la llamada api
+    let movieSearch = "" 
 
     const down = <FontAwesomeIcon className="" icon={faCaretDown} />
     const searchIcon = <FontAwesomeIcon className="" icon={faSearch} />
@@ -33,20 +40,21 @@ const Filter = () => {
 
     useEffect(() => {
         getGenres()
-        
     }, [movies])
 
     const getGenres = async() => {
         const request = await axios.get(genresLink)
         setGenres(request.data.genres)
         setIsLoading(false)
-
     }
+
+    //me cambia el estado al contrario (true -> false, false -> true)
     const handleDisplay = () =>{
         setIsHidden(!isHidden)
     }
 
     const getGenresChecked = () => {
+        //recojo todos los checkbox que han sido checkeados y los añado a lista genreListChecked (el %2C es como se separan en la llamada api. Pj: Comedia2%CAccion, sería Comedia,Accion)
         const checkboxes = document.querySelectorAll('input[name="genres"]:checked');
             checkboxes.forEach((checkbox, i) => {
                 if (i === 0){
@@ -63,7 +71,7 @@ const Filter = () => {
         const request = await axios.get(movieSearch)
         .then(resp => {
             setMovies(resp.data.results)  
-        } 
+            } 
         )
         return request
     }
@@ -71,6 +79,7 @@ const Filter = () => {
     return (
         <div className="filter-container">
             <NavBar/>
+            {/* Cuando isLoading sea false cargará todo el html */}
             {!isLoading && 
             <main>
                 <div className="content">
@@ -90,6 +99,7 @@ const Filter = () => {
                     </div>
                     <div className= {isHidden ? "hidden-content visible" : "hidden-content" } >
                         <form>
+                            {/* Un map que imprime todos los géneros */}
                             {
                                 genres.map((genre) => 
                                 <div key={genre.id} className="checkbox-content">
@@ -103,20 +113,21 @@ const Filter = () => {
                         <button onClick={getGenresChecked} className="search-button">buscar</button>
                     </div>
                     <div className="home-movie-cards"> 
+                        {/* Un map que imprime todas las películas */}
                         {
                             movies.length === 0 ? <span style={{margin: "auto"}}> No hay ninguna película con esos géneros. </span> : 
                             movies.map((movie)=>
                                 <Link key={movie.id} to={`/movie/${movie.id}`}>
-                                <div className="home-movie-card">
-                                    <div className="movie">
-                                        <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
-                                        <div className="movie-info">
-                                            <span className="movie-title">{movie.title}</span>
-                                            <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
+                                    <div className="home-movie-card">
+                                        <div className="movie">
+                                            <img src={ movie.poster_path === null ? "nf.png" : posterPath+movie.poster_path} alt=""/>
+                                            <div className="movie-info">
+                                                <span className="movie-title">{movie.title}</span>
+                                                <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div> 
-                            </Link>
+                                    </div> 
+                                </Link>
                             )
                         }
 

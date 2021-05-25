@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 import NavBar from '../NavBar/NavBar'
 import './list.css'
 import axios from 'axios'
@@ -27,10 +27,9 @@ const List = () => {
 
 
     const edit = <FontAwesomeIcon icon={faEdit} />
-    
     const trash = <FontAwesomeIcon icon={faTrash} />
     
-
+    //Lo primero que hago es obtener todas las listas que tenga ese usuario, cambio isLoading a false para que cargue la página al terminar de obtener todas las películas
     useEffect(() => {
         async function getLists() {
             const request = await axios.get(listLink)
@@ -39,7 +38,6 @@ const List = () => {
             setIsLoading(false)
         }
         getLists()
-    
     }, [isLoading, isCreating])
 
 
@@ -58,7 +56,6 @@ const List = () => {
             })
         })
         const data = await res.json()
-        console.log(data)
         setListName("")
         setIsCreating(false)
         setError('')
@@ -72,10 +69,8 @@ const List = () => {
                 <div className="mylists">
 
                     <ul>
-                        {isLoading ? 'cargando' : !isCreating ? <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }   </li> : null}
+                        {isLoading ? 'Cargando tus listas' : !isCreating ? <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }   </li> : null}
                      
-                        
-                        
                         {isCreating ?  <form onSubmit={createList} >
                             <input 
                                 type="text"
@@ -87,8 +82,7 @@ const List = () => {
                             <button className="createList" type="submit">Crear Lista</button>
                         </form> : null
                         } 
-                       
-                        
+                        {/* Todas las listas en la barra de navegación */}
                         {
                             lists.map((list) =>
                                 <li key={list.id}>  <a href={`#`+list.id}>{list.name} </a></li> 
@@ -97,7 +91,9 @@ const List = () => {
                     
                     </ul>
                 </div>
-                {/* Espero a que la página se renderice y compruebo si hay usuario conectado, y si la longitud de la lista es igual a 0, en ese caso no tiene listas creadas. */}
+
+                {/* Todas las listas en la body, y dentro sus películas */}
+
                 {
                     lists.map((list) =>
                         <div key={list.id} className="list-content">

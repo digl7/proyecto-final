@@ -12,9 +12,9 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [page, setPage] = useState(1) //Le sumo +1 cuando se da click en "cargas más"
     const [movies, setMovies] = useState([]) //lista inicial de 20 películas (máximo de peliculas por llamada a la api)
-    const [search, setSearch] = useState('')
+    const [search, setSearch] = useState('') //barra de búsqueda
 
-
+    //un atajo para que me sea más fácil acceder al poster de la película
     const posterPath = "https://image.tmdb.org/t/p/w300"
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87' 
     const link = "https://api.themoviedb.org/3/discover/movie?"+apikey+"&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page="+page+"&with_watch_monetization_types=flatrate"
@@ -23,12 +23,12 @@ const Home = () => {
     //UseEffect para la carga de peliculas cuando entras a la página y cuando le das al botón de cargar más.
     useEffect(() => {
         getMovies()
-
     }, [page])
 
     const getMovies = async() => {
         const request = await axios.get(link)
         .then(resp => {
+            //si search está vacio y la página es 1
             if (search === '' && page === 1){
                 setPage(1)
                 setMovies(resp.data.results)
@@ -49,7 +49,7 @@ const Home = () => {
 
 
     /* Búsqueda de peliculas */
-    const searchMovie = async() => { //Busco las peliculas de esta forma: calificación promedio y número de votos.
+    const searchMovie = async() => {
         if (search !== ''){ 
             const res = await fetch("https://api.themoviedb.org/3/search/movie?"+apikey+"&language=es-ES&query="+search+"&page=1&include_adult=false")
             const data = await res.json();
@@ -80,7 +80,6 @@ const Home = () => {
             <main>
                 {/* Cuando entreas a la página principal (home, /) autofocus a la barra de búsqueda.  */}
                 {document.getElementById("search").focus()}
-                { console.log(movies) }
                 <div className="home-movie-cards">                        
                         { 
                             movies.map((movie) => 

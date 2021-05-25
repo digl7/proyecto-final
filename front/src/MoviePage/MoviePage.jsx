@@ -10,10 +10,6 @@ import 'moment-timezone';
 import {  Link } from "react-router-dom";
 
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
 
 const MoviePage = () => {  
     //Input del comentario 
@@ -21,19 +17,22 @@ const MoviePage = () => {
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
     const [error, setError] = useState('')
+    //Todas las listas del usuario
     const [lists, setLists] = useState([])
-    const [isAdding, setIsAdding] = useState(false)
 
-    
+    //Estado para comprobar si está añadiendo esa película a la lista. 
+    //Si le doy click a el botón de añadir película me mostrará todas las listas para luego poder añadirla en una en específico
+    const [isAdding, setIsAdding] = useState(false)
+    //Obtengo el id del usuario a través del localStorage
     var user_id = window.localStorage.getItem('user_id');
     
     let posterPath = "https://image.tmdb.org/t/p/w500" //El poster con mas calidad
     let profilePhoto = "https://image.tmdb.org/t/p/w300" //Foto de perfil de cada actor
     let background = "https://themoviedb.org/t/p/w1920_and_h800_multi_faces/" //Foto de background
     const [isLoading, setIsLoading] = useState(true) //Espero a que los datos llegen a el useEffect, sino me daba undefined en otros estados
-    const [movie, setMovie] = useState([])    
-    const [cast, setCast] = useState([])  
-    const [genres, setGenres] = useState([])
+    const [movie, setMovie] = useState([]) //La película en la que se haya hecho click
+    const [cast, setCast] = useState([])  //Todos los actores / actrices
+    const [genres, setGenres] = useState([]) //Todos los géneros de esa película
 
 
     const apikey = 'api_key=7d3b7c40d4e3aa199e88e96633259b87'
@@ -41,12 +40,9 @@ const MoviePage = () => {
     let search = "https://api.themoviedb.org/3/movie/"+id+"?"+apikey+"&language=es-ES&append_to_response=credits"
     let searchComments = "http://127.0.0.1:5000/comment/view/"+id
     let commentCreate = "http://127.0.0.1:5000/comment/"+user_id
-
-
     let listLink = 'http://127.0.0.1:5000/lists/user/'+user_id
 
 
-    const plus = <FontAwesomeIcon icon={faPlus} />
 
     useEffect(() => {
         async function getMovie() {
@@ -100,7 +96,6 @@ const MoviePage = () => {
     const getLists = async() => {
         const request = await axios.get(listLink)
         const data  = request.data
-        console.log(request.data)
         setLists(data)
     }
 
@@ -156,7 +151,6 @@ const MoviePage = () => {
                                 }
                         </div>
                         <div className="movie-description">
-                            {/* CONDICIÓN DE ISADDING LISTAS */}
                             {    !isAdding ?  
                             
                                 <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>    

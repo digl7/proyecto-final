@@ -2,18 +2,19 @@ import React, { Fragment, useState } from 'react'
 import { useHistory } from "react-router-dom";
 
 import './login.css'
-
+//Props para pasarle a Login.jsx handleIsRegister (con esto cambiamos a la pestaña registro) y handleIsRecover (con esto cambiamos a la pestaña recover)
 const LoginForm = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null);
 
+    //para poder usar history.push al hacer login
     let history = useHistory();
 
     const sendData = async (e) => {
         e.preventDefault();
+        //si los campo están vacios
         if (!username.trim() || !password.trim()) {
-          //si el campo está vacio
           setError("Rellena los campos");
           return;
         } else {
@@ -30,10 +31,9 @@ const LoginForm = (props) => {
                 role_type: "user"
             }),
         });
-        console.log(res.status)
         const data = await res.json()
         if (res.status === 200){
-            console.log(data)
+            //añado a localStorage los datos del usuario que voy necesitar.
             localStorage.setItem('user_id', data.user.id)
             localStorage.setItem('user_name', data.user.username)
             localStorage.setItem('access_token', data.access_token)
