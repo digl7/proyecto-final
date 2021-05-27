@@ -92,7 +92,7 @@ const List = () => {
                     </ul>
                 </div>
 
-                {/* Todas las listas en la body, y dentro sus películas */}
+                {/* Todas las listas en el body, y dentro sus películas */}
 
                 {
                     lists.map((list) =>

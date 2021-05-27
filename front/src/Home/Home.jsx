@@ -10,9 +10,9 @@ import axios from 'axios';
 const Home = () => {
     // Página de la api:  https://developers.themoviedb.org/3/getting-started/introduction
     const [isLoading, setIsLoading] = useState(true)
-    const [page, setPage] = useState(1) //Le sumo +1 cuando se da click en "cargas más"
+    const [page, setPage] = useState(1) 
     const [movies, setMovies] = useState([]) //lista inicial de 20 películas (máximo de peliculas por llamada a la api)
-    const [search, setSearch] = useState('') //barra de búsqueda
+    const [search, setSearch] = useState('') 
 
     //un atajo para que me sea más fácil acceder al poster de la película
     const posterPath = "https://image.tmdb.org/t/p/w300"
@@ -28,7 +28,6 @@ const Home = () => {
     const getMovies = async() => {
         const request = await axios.get(link)
         .then(resp => {
-            //si search está vacio y la página es 1
             if (search === '' && page === 1){
                 setPage(1)
                 setMovies(resp.data.results)

@@ -9,7 +9,6 @@ const LoginForm = (props) => {
     const sendData = async (e) => {
         e.preventDefault();
         if (!username.trim() || !password.trim() || !email.trim()) {
-          //si el campo está vacio
           setError("Rellena los campos");
           return;
         }
