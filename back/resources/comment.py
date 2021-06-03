@@ -53,7 +53,6 @@ class CommentFromMovie(Resource):
 
 class AllComments(Resource):
     def get(self):
-
         commentList = []
         comments = CommentModel.query.all()
         for comment in comments:

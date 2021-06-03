@@ -53,11 +53,8 @@ const NavBar = (props) => {
         if (res.status === 200){
             localStorage.clear();
             window.location.reload()
-        }
-        if (res.status === 401){
-            alert("Tu sesión ha caducado y esto no puede pasar.. //TODO: hacerlo infinito")
-            localStorage.clear();
-            window.location.reload()
+        } else{
+            alert("ha ocurrido un error, no has podido hacer logout")
         }
     }
 

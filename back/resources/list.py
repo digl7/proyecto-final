@@ -2,6 +2,7 @@ from typing import List
 from flask_restful import Resource, reqparse
 from models import comment
 import requests
+from db import db
 
 from utils import generate_token_email, verify_token_email, EmailConfirmationService
 
@@ -32,7 +33,6 @@ _list_creation_parser.add_argument('name', type=str, required=True, help="This f
 class AddList(Resource):
     def post(self, user_id):
         data = _list_creation_parser.parse_args()
-
         list = ListModel(data["name"], user_id)
         try:
             list.save_to_db()
@@ -103,3 +103,12 @@ class MovieDeleteFromList(Resource):
                 return {"message" : "Pelicula no encontrada"}
         movieDelete.delete_from_db()
         return {"message": f"pelicula: {external_id}, borrada."}, 201  
+
+
+class RenameList(Resource):
+    def put(self, list_id):
+        data = _list_creation_parser.parse_args()
+        list = ListModel.find_by_id(list_id)
+        list.name = data["name"]
+        db.session.commit()
+        return {"message" : "Nombre de la lista cambiando con éxito"} , 201

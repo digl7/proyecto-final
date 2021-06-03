@@ -12,7 +12,7 @@ from resources.admin import Admin,AdminLovers
 
 from resources.comment import CommentCreation, AllComments, CommentFromMovie
 
-from resources.list import AddList, AllLists, ListDelete, ListFromUser, ListbyID, MovieDeleteFromList
+from resources.list import AddList, AllLists, ListDelete, ListFromUser, ListbyID, MovieDeleteFromList, RenameList
 
 from resources.movie import AddMovie, AllMovies, MovieFromList
 
@@ -21,7 +21,7 @@ app = Flask(__name__)
 CORS(app)
 
 # CONFIGURACIÓN DE LA APLICACIÓN
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@db:5432/proyectofinal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@127.0.0.1:5432/proyectofinal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -38,12 +38,12 @@ def create_tables_and_roles():
     db.create_all()
 
     # Insert de los dos roles existentes. TODO: Hacer un seeder más eficiente
-    admin = RoleModel("admin")
-    user = RoleModel("user")
+    # admin = RoleModel("admin")
+    # user = RoleModel("user")
     
-    db.session.add(admin)
-    db.session.add(user)
-    db.session.commit()
+    # db.session.add(admin)
+    # db.session.add(user)
+    # db.session.commit()
 
 
 # FLASK JWT EXTENDED
@@ -83,6 +83,7 @@ api.add_resource(AllLists, '/lists')
 api.add_resource(ListFromUser, '/lists/user/<int:user_id>')
 api.add_resource(ListDelete, '/list/delete/<int:id>')
 api.add_resource(MovieDeleteFromList, '/list/<int:list_id>/delete/<int:external_id>')
+api.add_resource(RenameList, '/list/rename/<int:list_id>')
 
 #movie
 api.add_resource(AddMovie, '/movie/<int:list_id>')

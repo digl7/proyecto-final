@@ -22,12 +22,14 @@ const List = () => {
     var user_id = window.localStorage.getItem('user_id');
     const [error, setError] = useState(null)
     const [lists, setLists] = useState([])
+    const [newName, setNewName] = useState("")
+    const [isC, setC] = useState(0)
     let listLink = 'http://127.0.0.1:5000/lists/user/'+user_id
     const posterPath = "https://image.tmdb.org/t/p/w300"
 
 
-    const edit = <FontAwesomeIcon icon={faEdit} />
-    const trash = <FontAwesomeIcon icon={faTrash} />
+    const edit = <FontAwesomeIcon style={{color: "#F9BC50", cursor:"pointer" }} icon={faEdit} />
+    const trash = <FontAwesomeIcon style={{color: "#dc3545", cursor: "pointer"}} icon={faTrash} />
     
     //Lo primero que hago es obtener todas las listas que tenga ese usuario, cambio isLoading a false para que cargue la página al terminar de obtener todas las películas
     useEffect(() => {
@@ -38,7 +40,7 @@ const List = () => {
             setIsLoading(false)
         }
         getLists()
-    }, [isLoading, isCreating])
+    }, [isLoading, isCreating, isC])
 
 
     const createList = async(e) => {
@@ -62,15 +64,56 @@ const List = () => {
         }
     }   
 
+    const handleDelete = async(list_id) =>{
+        const res = await fetch("http://127.0.0.1:5000/list/delete/" +list_id, {
+            method: 'POST',
+            headers:{
+                "Content-type" : "application/json",
+            }
+        })
+        const data = await res.json()
+        console.log(data)
+        console.log(res.status)
+        if (res.status === 201){
+            //Lo uso para poder renderizar la página al borrar la lista, y no tener que hacer F5 por cada lista borrada.
+            setC(isC+1)
+        } else{
+            alert("ha ocurrido un error, lista no borrada.")
+        }
+    }
+
+    const handleEdit = async(list_id) => {
+        console.log(newName)
+        const res = await fetch("http://127.0.0.1:5000/list/rename/" +list_id, {
+            method: 'PUT',
+            headers:{
+                "Content-type" : "application/json",
+            }, 
+            body: JSON.stringify({
+                'name' : newName
+            })
+        })
+        const data = await res.json()
+        console.log(data)
+        console.log(res.status)
+        if (res.status === 201){
+            //Lo uso para poder renderizar la página al borrar la lista, y no tener que hacer F5 por cada lista borrada.
+            setC(isC+1)
+            setIsEditing(false)
+        } else{
+            alert("ha ocurrido un error, lista no borrada.")
+        }
+    }
+
     return (
         <div className="list-container">
             <NavBar/>    
             <main>
                 <div className="mylists">
 
-                    <ul>
-                        {isLoading ? 'Cargando tus listas' : !isCreating ? <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }   </li> : null}
-                     
+                    <ul> 
+                        {/* Si está logado y está cargando muestra el mensaje "Cargando tus listas", Si no está cargando y no estás creando una lista y estás logeado, muestra el mensaje de "Crear lista" si no estás logeado muestra el mensaje de Iniciar sesión. Y si antes no estas logeado desde el principio muestra el mensaje de Iniciar sesión */}
+                        {user_id ? isLoading ? "Cargando tus listas" : !isCreating ? <li className="listCreate" onClick={() => setIsCreating(true)}> {user_id ? "Crear lista" : <Link to="/login"> Iniciar sesión </Link> }  </li> :null : <li className="listCreate"> <Link to="/login"> Iniciar sesión </Link>   </li>}
                         {isCreating ?  <form onSubmit={createList} >
                             <input 
                                 type="text"
@@ -98,10 +141,19 @@ const List = () => {
                     lists.map((list) =>
                         <div key={list.id} className="list-content">
 
-                            <span id={list.id} className="list-title"> {list.name} </span>
+                            <span id={list.id} className="list-title"> 
+                            {isEditing ? <input 
+                                type="text" 
+                                placeholder={list.name} 
+                                onChange={(e) => setNewName(e.target.value)} 
+                                value={newName}/> 
+                                :
+                            list.name}  
+                            {isEditing && <span onClick={() => handleEdit(list.id)}> {edit} </span> }
+                            <span onClick={() => handleDelete(list.id)}> {trash} </span> </span>
                             <div className="option">
-                                {/* Cuando le das click se cambia al estado contrario. Empieza en false. */}
-                                <span  onClick={() => setIsEditing(!isEditing)} className="list-edit" > {isEditing ? "Parar de editar":"editar" } </span>             
+                                {/* Cuando das click se cambia al estado contrario. Empieza en false. */}
+                                <span  onClick={() => setIsEditing(!isEditing)} className="list-edit" > {isEditing ? "Parar de editar": "editar" } </span>             
                                 <div className="movies">
                                 {
                                     list.movie !== undefined ?

@@ -153,7 +153,7 @@ class UserLogin(Resource):
 
             # Comprobamos username y contraseña. TODO: Hashear contraseña
             if user and (user.password == data['password']):
-                access_token = "Bearer " + create_access_token(identity=user.id, fresh=True)
+                access_token = "Bearer " + create_access_token(identity=user.id, fresh=True, expires_delta =False)
                 refresh_token = "Bearer " + create_refresh_token(user.id)
                 return {'user': user_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
         
@@ -164,7 +164,7 @@ class UserLogin(Resource):
 
             # Comprobamos username y contraseña. TODO: Hashear contraseña
             if admin and (admin.password == data['password']):
-                access_token = "Bearer " + create_access_token(identity=admin.id, fresh=True)
+                access_token = "Bearer " + create_access_token(identity=admin.id, fresh=True, expires_delta =False)
                 refresh_token = "Bearer " + create_refresh_token(admin.id)
                 return {'user': admin_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
 
