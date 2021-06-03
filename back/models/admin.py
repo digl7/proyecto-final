@@ -2,16 +2,13 @@ from db import db
 from models import UserModel
 
 
-# Clase que hereda de UserModel y que representa a los usuarios
-# que "buscarán el amor" :D
 class AdminModel(db.Model):
     __tablename__ = 'admin'
 
-    # Atributos del modelo Lover
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(180), nullable=False)
     email_confirmed = db.Column(db.Boolean(80), nullable=True, default=False)
 
     role_type = db.Column(db.String(20), db.ForeignKey('roles.role_type'), nullable=False)

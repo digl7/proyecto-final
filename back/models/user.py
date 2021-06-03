@@ -1,4 +1,5 @@
 from db import db
+from werkzeug.security  import generate_password_hash, check_password_hash
 
 
 class UserModel(db.Model):
@@ -7,7 +8,7 @@ class UserModel(db.Model):
     # Atributos del Usuario
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
-    password = db.Column(db.String(80), nullable=False)
+    password = db.Column(db.String(180), nullable=False)
     email = db.Column(db.String(80), nullable=False)
     email_confirmed = db.Column(db.Boolean(80), nullable=True, default=False)
 
@@ -19,7 +20,7 @@ class UserModel(db.Model):
 
     def __init__(self, username, password, email, role_type):
         self.username = username
-        self.password = password
+        self.password = generate_password_hash(password)
         self.email = email
         self.role_type = role_type
 

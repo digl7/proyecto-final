@@ -62,7 +62,7 @@ def check_if_token_in_blacklist(decrypted_token, jwt_load):
 api.add_resource(UserActivate, '/user/activate/<string:token>')
 api.add_resource(TokenRefresh, '/refresh')  # Genera un nuevo token de acceso
 
-# Lover Resources
+# User Resources
 api.add_resource(User, '/user/<int:user_id>')
 
 #user

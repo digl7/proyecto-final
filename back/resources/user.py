@@ -1,3 +1,4 @@
+from werkzeug.security import check_password_hash
 from flask_restful import Resource, reqparse
 
 from utils import generate_token_email, verify_token_email, EmailConfirmationService
@@ -152,7 +153,7 @@ class UserLogin(Resource):
             user_json = user_schema.dump(user)
 
             # Comprobamos username y contraseña. TODO: Hashear contraseña
-            if user and (user.password == data['password']):
+            if user and (check_password_hash(user.password, data['password'])):
                 access_token = "Bearer " + create_access_token(identity=user.id, fresh=True, expires_delta =False)
                 refresh_token = "Bearer " + create_refresh_token(user.id)
                 return {'user': user_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
