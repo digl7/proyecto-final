@@ -34,7 +34,6 @@ class AddMovie(Resource):
         data = _list_creation_parser.parse_args()
         movie = MovieModel(data["external_id"], list_id)
         movie_exid = MovieModel.query.filter_by(list_id=list_id, external_id=data["external_id"]).first()
-        print(movie_exid)
         if not movie_exid:
             try:
                 movie.save_to_db()

@@ -31,22 +31,24 @@ app.secret_key = 'lasmejorespelis'
 # FLASK_RESTFUL
 api = Api(app)
 
-
-@app.before_first_request
+@app.before_request
 def create_tables_and_roles():
     # Crea las tablas de la BD e inserta los dos roles en la tabla Roles
     db.create_all()
 
-    # Insert de los dos roles existentes. TODO: Hacer un seeder más eficiente
-    # admin = RoleModel("admin")
-    # user = RoleModel("user")
-    
-    # db.session.add(admin)
-    # db.session.add(user)
-    # db.session.commit()
+    try:
+        admin = RoleModel("admin")
+        user = RoleModel("user")       
+        db.session.add(admin)
+        db.session.add(user)
+        db.session.commit()
+    except:
+        db.session.rollback()
+        pass
 
 
 # FLASK JWT EXTENDED
+
 jwt = JWTManager(app)
 
 

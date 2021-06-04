@@ -134,7 +134,6 @@ class AllUsers(Resource):
     def get(self):
         try:
             users = UserModel.query.all()
-            print(users)
         except:
             return {"message": "Error al mostrar las listas."}, 500
         return [UserModel.json(user) for user in users]
@@ -184,7 +183,7 @@ class UserActivate(Resource):
         if user:
             user.email_confirmed = True
             user.save_to_db()
-            return {'msg': 'User verificated correctly! LOVER'}, 200
+            return {'msg': 'User verificated correctly'}, 200
 
         if admin:
             admin.email_confirmed = True

@@ -27,7 +27,7 @@ def verify_token_email(token: str, max_age: int=1800, salt: str=None):
 # Clase para la implementación del envío de correo de confirmacion
 class EmailConfirmationService:
 
-    from_email = "carteleraOnline@gmail.com"
+    from_email = "carteleraOnline.activate@gmail.com"
     password = "carteleraOnline"
     subject = "Email Confirmation"
 
@@ -43,8 +43,23 @@ class EmailConfirmationService:
         msg['From'] = self.from_email
         msg['To'] = self.to
 
+        text = "¡Hola!\nAquí tienes el código de confirmación:\n "+self.message
+        html = """\
+        <html>
+        <head></head>
+        <body>
+            <p>¡Hola!<br>
+            Aquí tienes el código de confirmación: <br>
+            """+self.message+"""
+            </p>
+        </body>
+        </html>
+        """
+        part1 = MIMEText(text, 'plain')
+        part2 = MIMEText(html, 'html')
         # Agregando el mensaje al cuerpo
-        msg.attach(MIMEText(self.message, 'plain'))
+        msg.attach(part1)
+        msg.attach(part2)
 
         # Servidor
         try:

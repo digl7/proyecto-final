@@ -29,8 +29,9 @@ const LoginForm = (props) => {
     }); 
         if (res.status === 400){
             alert("Ya existe ese usuario o email")
+            
         } else if (res.status === 201){
-            alert("registrado correctamente")
+            props.handleIsRecover()
             
         }
     };

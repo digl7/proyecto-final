@@ -50,7 +50,7 @@ const Login = () => {
                                                     handleIsRegister={() => setIsLogin("Register")}
                                                     handleIsRecover={() => setIsLogin("Recover")}
                                                     /> :
-                            isLogin === 'Register' ? <RegisterForm handleIsLogin={() => setIsLogin("Login")}/> :
+                            isLogin === 'Register' ? <RegisterForm handleIsRecover={() => setIsLogin("Recover")} handleIsLogin={() => setIsLogin("Login")}/> :
                             isLogin === 'Recover' ? <Recover handleIsLogin={() => setIsLogin("Login")}/> : <LoginForm/>
                         }     
                             
