@@ -81,7 +81,7 @@ class ListFromUser(Resource):
         
 
 class ListDelete(Resource):
-    def post(self, id):
+    def delete(self, id):
         list = ListModel.query.filter_by(id=id).first()
         if not list:
             return {"message": "Lista no encontrada."}, 500
@@ -89,7 +89,7 @@ class ListDelete(Resource):
         return {"message": f"Lista: {id}, borrada."}, 201  
 
 class MovieDeleteFromList(Resource):
-    def post(self, list_id, external_id):
+    def delete(self, list_id, external_id):
         lists = ListModel.query.filter_by(id=list_id).first()
         listJson = lists.json()
         movies = MovieModel.query.filter_by(list_id=listJson["id"]).all()

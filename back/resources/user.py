@@ -76,8 +76,6 @@ class User(Resource):
         user.delete_from_db()
         return {'message': 'User Deleted'}, 200
 
-
-
 class UserRegister(Resource):
     def post(self):
         data = _user_register_parser.parse_args()

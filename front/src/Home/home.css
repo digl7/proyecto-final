@@ -45,9 +45,6 @@
     transition: all 0.2s linear;
 }
 
-.home-movie-card{
-    display: flex;
-}
 .home-movie-card .movie{
     border-radius: 15px;
     display: inline-block;

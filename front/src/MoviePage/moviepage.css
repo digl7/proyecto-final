@@ -231,6 +231,7 @@
 .movie-comments .error{
     color: #dc3545;
 }
+
 /*Margen de la primera línea (usuario + hora)*/
 .movie-comments .comment .comment-username span{
     color: var(--yellow-main);
@@ -287,7 +288,6 @@
         margin: 0 5%
     }
     .moviePage-container .movie-title span{
-        color: green;
         font-size: 1.5rem;
     }
     .movie-comments{
@@ -317,7 +317,6 @@
         margin: 0 5%
     }
     .moviePage-container .movie-title span{
-        color: yellow;
         font-size: 1.5rem;
     }
     .movie-comments{

@@ -18,7 +18,7 @@ const List = () => {
     const [listName, setListName] = useState('')
     const [isCreating, setIsCreating] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEditing, setIsEditing] = useState('')
     var user_id = window.localStorage.getItem('user_id');
     const [error, setError] = useState(null)
     const [lists, setLists] = useState([])
@@ -66,7 +66,7 @@ const List = () => {
 
     const handleDelete = async(list_id) =>{
         const res = await fetch("http://127.0.0.1:5000/list/delete/" +list_id, {
-            method: 'POST',
+            method: 'DELETE',
             headers:{
                 "Content-type" : "application/json",
             }
@@ -83,7 +83,6 @@ const List = () => {
     }
 
     const handleEdit = async(list_id) => {
-        console.log(newName)
         const res = await fetch("http://127.0.0.1:5000/list/rename/" +list_id, {
             method: 'PUT',
             headers:{
@@ -94,15 +93,32 @@ const List = () => {
             })
         })
         const data = await res.json()
-        console.log(data)
-        console.log(res.status)
         if (res.status === 201){
             //Lo uso para poder renderizar la página al borrar la lista, y no tener que hacer F5 por cada lista borrada.
             setC(isC+1)
-            setIsEditing(false)
+            setIsEditing('')
         } else{
             alert("ha ocurrido un error, lista no borrada.")
         }
+    }
+
+    const handleDeleteMovie = async(list_id, movie_id) => {
+        console.log(list_id)
+        console.log(movie_id)
+        const res = await fetch("http://127.0.0.1:5000/list/"+list_id+"/delete/"+movie_id, {
+            method: 'DELETE',
+            headers:{
+                "Content-type" : "application/json",
+            }
+        })
+        const data = await res.json()
+        if (res.status === 201){
+            //Lo uso para poder renderizar la página al borrar la lista, y no tener que hacer F5 por cada lista borrada.
+            setC(isC+1)
+        } else{
+            alert("ha ocurrido un error, pelicula no borrada.")
+        }
+
     }
 
     return (
@@ -142,7 +158,7 @@ const List = () => {
                         <div key={list.id} className="list-content">
 
                             <span id={list.id} className="list-title"> 
-                            {isEditing ? <input 
+                            {isEditing === list.id ? <input 
                                 type="text" 
                                 placeholder={list.name} 
                                 onChange={(e) => setNewName(e.target.value)} 
@@ -152,23 +168,29 @@ const List = () => {
                             {isEditing && <span onClick={() => handleEdit(list.id)}> {edit} </span> }
                             <span onClick={() => handleDelete(list.id)}> {trash} </span> </span>
                             <div className="option">
+
                                 {/* Cuando das click se cambia al estado contrario. Empieza en false. */}
-                                <span  onClick={() => setIsEditing(!isEditing)} className="list-edit" > {isEditing ? "Parar de editar": "editar" } </span>             
+                                { isEditing === '' ? <span  onClick={() => setIsEditing(list.id)} className="list-edit" > Editar </span> : <span className="list-edit" onClick={() => setIsEditing("")}> Parar de editar </span> }
                                 <div className="movies">
                                 {
                                     list.movie !== undefined ?
                                     list.movie.map((movie)=>
-                                    <Link key={movie.id} to={`/movie/${movie.id}`}>
-                                        <div className="home-movie-card">
-                                            <div className="movie">
-                                                <img src={ movie.poster_path === null ? notfound : posterPath+movie.poster_path} alt=""/>
-                                                <div className="movie-info">
-                                                    <span className="movie-title">{movie.title}</span>
-                                                    <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
+                                    <div>
+                                        <Link key={movie.id} to={`/movie/${movie.id}`}>
+                                            <div className="home-movie-card">
+                                                <div className="movie">
+                                                    <img src={ movie.poster_path === null ? notfound : posterPath+movie.poster_path} alt=""/>
+                                                    <div className="movie-info">
+                                                        <span className="movie-title">{movie.title}</span>
+                                                        <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
-                                        </div> 
-                                    </Link>
+                                        </Link>
+                                        {isEditing && <span onClick={() => handleDeleteMovie(list.id, movie.id)} > Eliminar película {trash} </span> }
+                                    
+                                    </div>
                                     ) : <span>¡No tienes ninguna película, añade alguna! Prueba aquí: <Link className="yellow" to="/">Home</Link>, o aquí: <Link className="yellow" to="/filter">Filtrar</Link></span>
                                 }
                                 </div>
