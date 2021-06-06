@@ -43,23 +43,10 @@ class EmailConfirmationService:
         msg['From'] = self.from_email
         msg['To'] = self.to
 
-        text = "¡Hola!\nAquí tienes el código de confirmación:\n "+self.message
-        html = """\
-        <html>
-        <head></head>
-        <body>
-            <p>¡Hola!<br>
-            Aquí tienes el código de confirmación: <br>
-            """+self.message+"""
-            </p>
-        </body>
-        </html>
-        """
+        text = "¡Hola!\nAquí tienes el código de confirmación:\n"+self.message
         part1 = MIMEText(text, 'plain')
-        part2 = MIMEText(html, 'html')
         # Agregando el mensaje al cuerpo
         msg.attach(part1)
-        msg.attach(part2)
 
         # Servidor
         try:

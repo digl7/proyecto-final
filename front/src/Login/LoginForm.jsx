@@ -39,8 +39,8 @@ const LoginForm = (props) => {
             localStorage.setItem('access_token', data.access_token)
             localStorage.setItem('refresh_token', data.refresh_token)
             history.push("/")
-        } else{
-            setError("Datos incorrectos")
+        } else {
+            setError("Datos incorrectos o tienes que activar el correo para poder acceder")
         }
         };
     return (
