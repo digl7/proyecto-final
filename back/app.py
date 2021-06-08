@@ -21,12 +21,12 @@ app = Flask(__name__)
 CORS(app)
 
 # CONFIGURACIÓN DE LA APLICACIÓN
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@127.0.0.1:5432/proyectofinal'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@db:5432/proyectofinal'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #Si lo dejamos en True, rastreará modificaciones de objetos y esto requiere memoria adicional y debe desactivarse si no es necesario.
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-app.secret_key = 'lasmejorespelis'
+app.secret_key = 'lasmejorespelis' #Es una clave aleatoria que se usa para encriptar las cookies
 
 # FLASK_RESTFUL
 api = Api(app)
@@ -48,7 +48,6 @@ def create_tables_and_roles():
 
 
 # FLASK JWT EXTENDED
-
 jwt = JWTManager(app)
 
 

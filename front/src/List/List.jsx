@@ -96,6 +96,7 @@ const List = () => {
         if (res.status === 201){
             //Lo uso para poder renderizar la página al borrar la lista, y no tener que hacer F5 por cada lista borrada.
             setC(isC+1)
+            setNewName('')
             setIsEditing('')
         } else{
             alert("ha ocurrido un error, lista no borrada.")
@@ -175,8 +176,8 @@ const List = () => {
                                 {
                                     list.movie !== undefined ?
                                     list.movie.map((movie)=>
-                                    <div>
-                                        <Link key={movie.id} to={`/movie/${movie.id}`}>
+                                    <div key={movie.id}> 
+                                        <Link  to={`/movie/${movie.id}`}>
                                             <div className="home-movie-card">
                                                 <div className="movie">
                                                     <img src={ movie.poster_path === null ? notfound : posterPath+movie.poster_path} alt=""/>
@@ -184,7 +185,6 @@ const List = () => {
                                                         <span className="movie-title">{movie.title}</span>
                                                         <span className="movie-overview">{ movie.overview === "" ?  "No hay descripción de esta película" : movie.overview}</span>
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
                                         </Link>

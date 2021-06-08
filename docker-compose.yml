@@ -10,7 +10,7 @@ services:
     ports:
       - 5432:5432
   web:
-    build: .
+    build: ./back/
     command: python app.py
     volumes:
       - ./back:/code
@@ -23,3 +23,14 @@ services:
     image: adminer
     ports:
       - 8080:8080
+      
+  front:
+    build: ./front/
+    volumes:
+      - ./front:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+    
+

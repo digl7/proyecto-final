@@ -64,7 +64,7 @@ class ListbyID(Resource):
 class ListFromUser(Resource):
     def get(self, user_id):
         listofList = []
-        lists = ListModel.query.filter_by(user_id=user_id).all()
+        lists = ListModel.query.filter_by(user_id=user_id).order_by(ListModel.id.desc()).all()
         for list in lists:
             listJson = list.json()
             movies = MovieModel.query.filter_by(list_id=listJson["id"]).all()

@@ -150,13 +150,12 @@ class UserLogin(Resource):
             user_json = user_schema.dump(user)
 
             #Descomentar para que el usuario tenga que activar su correo para poder iniciar sesión
-            # if user and (check_password_hash(user.password, data['password']) and user.email_confirmed):
-            if user and (check_password_hash(user.password, data['password'])):
+            if user and (check_password_hash(user.password, data['password']) and user.email_confirmed):
                 access_token = "Bearer " + create_access_token(identity=user.id, fresh=True, expires_delta =False)
                 refresh_token = "Bearer " + create_refresh_token(user.id)
                 return {'user': user_json, 'access_token': access_token, 'refresh_token': refresh_token}, 200
-            # else:
-            #     return {"message" : "datos incorrectos o falta activar el correo"}, 401
+            else:
+                return {"message" : "datos incorrectos o falta activar el correo"}, 401
         if admin:
 
             admin_schema = AdminSchema()
