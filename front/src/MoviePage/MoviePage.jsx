@@ -17,6 +17,7 @@ const MoviePage = () => {
     //Todos los comentarios de la pelicula
     const [comments, setComments] = useState([])
     const [error, setError] = useState('')
+    const [ok, setOk] = useState('')
     //Todas las listas del usuario
     const [lists, setLists] = useState([])
 
@@ -100,6 +101,8 @@ const MoviePage = () => {
     }
 
     const addMovie = async(e) => {
+        setError('')
+        setOk('')
         var list_id = e.target.id
         const res = await fetch("http://127.0.0.1:5000/movie/"+list_id, {
             method: 'POST',
@@ -112,10 +115,10 @@ const MoviePage = () => {
         }
         )
         if (res.status === 500){
-            alert("peli repetida")
+            setError("peli repetida")
         }
         if (res.status === 201){
-            alert("peli añadida")
+            setOk("peli añadida")
         }
     }
 
@@ -148,20 +151,24 @@ const MoviePage = () => {
                                     // Última posicion termina con punto.
                                         <span key={genre.id} > {genres.length === i + 1 ? genre.name+"." : genre.name+", "  } </span>
                                     ) 
-                                }
+                                } 
+                                
                         </div>
+                        {error ? <span className="text-danger">{error}</span> : <span style={{color: '#F9BC50', marginBottom: '10px', fontWeight: 'bold'}}>{ok}</span>}
                         <div className="movie-description">
+                        
                             {    !isAdding ?  
                             
                                 <p>{movie.overview === '' ? "No hay información de esta película." : movie.overview }</p>    
-
+                                
                                 : 
                                 lists.length === 0 ? <span> No tienes ninguna lista creada, ¡ve a <Link to={`/list/${user_id}`} className="yellow">mi listas</Link> para crear una! </span> :
                                 lists.map((list)=>
                                     <div key={list.id} className="list">
-                                        <span> {list.name} </span> <button id={list.id} onClick={(e) => addMovie(e)} className="addToList">Añadir</button>
+                                        <span> {list.name}  </span> <button id={list.id} onClick={(e) => addMovie(e)} className="addToList">Añadir</button> 
                                     </div>
-                                )   
+                                )
+                                
                             }
                            
                         </div>

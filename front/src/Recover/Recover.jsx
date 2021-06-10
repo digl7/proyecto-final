@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react'
 const Recover = (props) => {
     const [activationCode, setActivationCode] = useState('')
     const [error, setError] = useState(false)
+    const [ok, setOk] = useState(false)
 
     const sendData = async (e) => {
         e.preventDefault();
@@ -18,6 +19,8 @@ const Recover = (props) => {
     }
 
     const handleActivate = async () => {
+      setOk('')
+      setError('')
       const res = await fetch("http://127.0.0.1:5000/user/activate/"+activationCode, {
         method: "GET",
         headers: {
@@ -25,9 +28,9 @@ const Recover = (props) => {
         }
       })
       if(res.status===200){
-        alert("CONFIRMACION CORRECTA")
+        setOk("El correo se ha confirmado con éxito")
       } else{
-        alert("Se ha producido un error al confirmar el correo.")
+        setError("Se ha producido un error al confirmar el correo.")
       }
     }
 
@@ -47,7 +50,7 @@ const Recover = (props) => {
                       value={activationCode}
                     />
                     <p>¿Has terminado? <span onClick={props.handleIsLogin} className="yellow"> Inicia sesión</span>.</p>
-                    {error ? <span className="text-danger">{error}</span> : null}
+                    {ok ? <span style={{color: '#F9BC50', marginBottom: '10px', fontWeight: 'bold'}}>{ok}</span> : <span className="text-danger" style={{marginBottom: '10px', fontWeight: 'bold'}}>{error}</span>}
                     <button onClick={handleActivate} >ENVIAR</button>
                 </div>
 

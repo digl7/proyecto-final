@@ -99,7 +99,7 @@ const List = () => {
             setNewName('')
             setIsEditing('')
         } else{
-            alert("ha ocurrido un error, lista no borrada.")
+            alert("ha ocurrido un error, lista no editada.")
         }
     }
 
