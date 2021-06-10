@@ -57,6 +57,7 @@ const MoviePage = () => {
         getMovie()
         getComments()
         getLists()
+        
 
     }, []) 
 
