@@ -180,6 +180,11 @@
 
 }
 
+@media (max-height: 852px){
+    .info h1{
+        margin-bottom: 15px;
+    }
+}
 
 @media (min-width: 481px) and (max-width: 767px) {
     .login-block{
@@ -208,11 +213,13 @@
         display: none;
     }
     .login-block .info{
-        height: 78%;
+        height: 85%;
         border: none;
     }
     .login-block .info form{
         width: 100%;
     }
-
+    .form-container button {
+        font-size: 1.5rem;
+    }
 }

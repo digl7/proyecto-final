@@ -21,7 +21,7 @@ app = Flask(__name__)
 CORS(app)
 
 # CONFIGURACIÓN DE LA APLICACIÓN
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@db:5432/proyectofinal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost:5432/proyectofinal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False #Si lo dejamos en True, rastreará modificaciones de objetos y esto requiere memoria adicional y debe desactivarse si no es necesario.
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['PROPAGATE_EXCEPTIONS'] = True
