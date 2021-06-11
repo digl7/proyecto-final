@@ -185,6 +185,22 @@
         margin-bottom: 15px;
     }
 }
+@media (max-height: 700px){
+    .info h1{
+        font-size: 1.5rem;
+    }
+    .form-container button{
+        font-size: 1rem;
+        padding: 1rem;
+        margin-bottom: 5px;
+    }
+    .form-container input{
+        padding: 0.5rem;
+    }
+    .form-container p{
+        font-size: 0.8rem;
+    }
+}
 
 @media (min-width: 481px) and (max-width: 767px) {
     .login-block{
